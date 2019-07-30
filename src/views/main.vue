@@ -18,7 +18,7 @@
 		</div>
 		<div class="content">
 			<!--<router-view></router-view>-->
-			<el-tabs v-model="mainTabsActiveName" closable @tab-click="selectedTabHandle">
+			<el-tabs v-model="mainTabsActiveName" closable @tab-remove="removeTab" @tab-click="selectedTabHandle">
 				<el-tab-pane v-for="(item,index) in mainTabs" :label="item.title" :name="item.name" :key="item.name">
 					<el-card>
 						<router-view></router-view>
@@ -73,11 +73,12 @@
 			};
 			this.mainTabs = this.mainTabs.concat(tab);
 			this.mainTabsActiveName = tab.name;
-			// this.$router.push({name:'home'});
+			 this.$router.push({name:'home'});
 		},
 		methods:{
 			// 监听路由的变化
 			routeHandle(route){
+				console.log('111');
 				// debugger;
 				var tab = this.mainTabs.filter(item => item.name === route.name)[0];
 				// 如果不存在tab 就进行添加操作
@@ -97,7 +98,28 @@
 				if (tab.length >= 1) {
 		          this.$router.push({ name: tab[0].name });
 		        }
-			}
+			},
+			removeTab(targetName){
+				// console.log(targetName);   // 输出的name属性值  
+				let tabs = this.mainTabs;
+				let activeName = this.mainTabsActiveName;   // 当前活动的面板
+				// 如果删除的是当前激活的tab,需要让其后一个tab进行active或者前一个
+				if(activeName === targetName){
+					tabs.forEach((tab,index)=>{
+						if(tab.name === targetName){
+							let nextTab = tabs[index+1]||tabs[index-1];
+							if(nextTab){
+								activeName = nextTab.name;
+							}
+						}
+					})
+				}
+				// 删除tab标签页
+				this.mainTabs = tabs.filter(tab=>tab.name!==targetName);
+				// 设置active的tab
+				this.mainTabsActiveName = activeName;
+				this.$router.push({name:activeName});
+			},
 		},
 		computed:{
 			mainTabs: {
