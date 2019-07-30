@@ -10,6 +10,5 @@
 <style scoped="scoped">
 	.home{
 		height: 1000px;
-		background-color: #fff;
 	}
 </style>

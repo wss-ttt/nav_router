@@ -18,11 +18,11 @@
 		</div>
 		<div class="content">
 			<!--<router-view></router-view>-->
-			<el-tabs v-model="mainTabsActiveName" closable>
+			<el-tabs v-model="mainTabsActiveName" closable @tab-click="selectedTabHandle">
 				<el-tab-pane v-for="(item,index) in mainTabs" :label="item.title" :name="item.name" :key="item.name">
-					<keep-alive>
-						<router-view v-if="item.name === mainTabsActiveName"></router-view>
-					</keep-alive>
+					<el-card>
+						<router-view></router-view>
+					</el-card>
 				</el-tab-pane>
 			</el-tabs>
 		</div>
@@ -64,11 +64,22 @@
 		watch:{
 			$route: 'routeHandle'
 		},
+		mounted(){
+			console.log(this.$route);
+			var tab={
+				name:this.$route.name,
+				title:this.$route.meta.title,
+				path:this.$route.path
+			};
+			this.mainTabs = this.mainTabs.concat(tab);
+			this.mainTabsActiveName = tab.name;
+			// this.$router.push({name:'home'});
+		},
 		methods:{
 			// 监听路由的变化
 			routeHandle(route){
+				// debugger;
 				var tab = this.mainTabs.filter(item => item.name === route.name)[0];
-				console.log('tab:',tab);
 				// 如果不存在tab 就进行添加操作
 				if(!tab){
 					var tab = {
@@ -79,6 +90,13 @@
 					this.mainTabs = this.mainTabs.concat(tab);
 				}
 				this.mainTabsActiveName = tab.name;
+			},
+			// 单击tab标签 实现内容的切换
+			selectedTabHandle(tab){
+				tab = this.mainTabs.filter(item => item.name === tab.name);
+				if (tab.length >= 1) {
+		          this.$router.push({ name: tab[0].name });
+		        }
 			}
 		},
 		computed:{
@@ -118,7 +136,7 @@
 		bottom: 0;
 		padding: 30px;
 		background-color: #ccc;
+		padding: 55px 30px 30px;
 		overflow-y: auto;
-		padding: 30px;
 	}
 </style>
