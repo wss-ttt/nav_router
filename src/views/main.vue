@@ -8,11 +8,20 @@
 				active-text-color="#ffd04b" 
 				:default-active="this.$route.path" 
 				router>
-				<el-menu-item v-for="(item,index) in items" 
+				<!--循环的是items中的数据-->
+				<!--<el-menu-item v-for="(item,index) in items" 
 					:index="item.index" 
 					:key="item.index">
 					<i :class="item.icon"></i>
 					<span>{{item.title}}</span>
+				</el-menu-item>-->
+				<!--循环路由表中的数据-->
+				<el-menu-item v-for="(item,index) in $router.options.routes[1].children" 
+					:index="item.path" 
+					:key="item.path">
+					<!--因为我的路由表里面有icon 所以这里就不设置icon了-->
+					<!--<i :class="item.icon"></i>-->
+					<span>{{item.meta.title}}</span>
 				</el-menu-item>
 			</el-menu>
 		</div>
@@ -67,6 +76,8 @@
 		mounted(){
 			console.log('刷新页面会执行这个代码吗');
 			this.initTab();
+			// 打印输出路由表里面的数据
+			// console.log(this.$router.options.routes[1].children);
 		},
 		methods:{
 			// 监听路由的变化
