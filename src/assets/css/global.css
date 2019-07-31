@@ -17,7 +17,10 @@ ul,li{
     background-color: #fff;
     z-index: 9999;
 }
-
+.site-tabs__tools{
+	position: absolute;
+	right: 0;
+}
 .el-card{
 	border: none;
 }

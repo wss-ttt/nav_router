@@ -2,12 +2,7 @@
 	<div class="wrapper">
 		<v-header></v-header>
 		<div class="sidebar">
-			<el-menu class="sidebar-el-menu" 
-				background-color="#545c64" 
-				text-color="#fff" 
-				active-text-color="#ffd04b" 
-				:default-active="this.$route.path" 
-				router>
+			<el-menu class="sidebar-el-menu" background-color="#545c64" text-color="#fff" active-text-color="#ffd04b" :default-active="this.$route.path" router>
 				<!--循环的是items中的数据-->
 				<!--<el-menu-item v-for="(item,index) in items" 
 					:index="item.index" 
@@ -16,9 +11,7 @@
 					<span>{{item.title}}</span>
 				</el-menu-item>-->
 				<!--循环路由表中的数据-->
-				<el-menu-item v-for="(item,index) in $router.options.routes[1].children" 
-					:index="item.path" 
-					:key="item.path">
+				<el-menu-item v-for="(item,index) in $router.options.routes[1].children" :index="item.path" :key="item.path">
 					<!--因为我的路由表里面有icon 所以这里就不设置icon了-->
 					<!--<i :class="item.icon"></i>-->
 					<span>{{item.meta.title}}</span>
@@ -28,6 +21,15 @@
 		<div class="content">
 			<!--<router-view></router-view>-->
 			<el-tabs v-model="mainTabsActiveName" closable @tab-remove="removeTab" @tab-click="selectedTabHandle">
+				<el-dropdown class="site-tabs__tools" :show-timeout="0">
+					<i class="el-icon-arrow-down el-icon--right"></i>
+					<el-dropdown-menu slot="dropdown">
+						<el-dropdown-item @click.native="tabsCloseCurrentHandle">关闭当前标签页</el-dropdown-item>
+						<el-dropdown-item @click.native="tabsCloseOtherHandle">关闭其它标签页</el-dropdown-item>
+						<el-dropdown-item @click.native="tabsCloseAllHandle">关闭全部标签页</el-dropdown-item>
+						<el-dropdown-item @click.native="tabsRefreshCurrentHandle">刷新当前标签页</el-dropdown-item>
+					</el-dropdown-menu>
+				</el-dropdown>
 				<el-tab-pane v-for="(item,index) in mainTabs" :label="item.title" :name="item.name" :key="item.name">
 					<el-card>
 						<router-view></router-view>
@@ -45,58 +47,58 @@
 			return {
 				items: [{
 						icon: 'el-icon-menu',
-						index: '/home',   // 要和route中的path一样 否则路由匹配不上
+						index: '/home', // 要和route中的path一样 否则路由匹配不上
 						title: '首页',
-						name:'shouye'
+						name: 'shouye'
 					},
 					{
 						icon: 'el-icon-document',
 						index: '/photo',
 						title: '相册',
-						name:'photo'
+						name: 'photo'
 					},
 					{
 						icon: 'el-icon-setting',
 						index: '/blog',
 						title: '博客',
-						name:'blog'
+						name: 'blog'
 					},
 					{
 						icon: 'el-icon-location',
 						index: '/news',
 						title: '新闻',
-						name:'news'
+						name: 'news'
 					},
 				]
 			}
 		},
-		watch:{
+		watch: {
 			$route: 'routeHandle'
 		},
-		mounted(){
+		mounted() {
 			console.log('刷新页面会执行这个代码吗');
 			this.initTab();
 			// 打印输出路由表里面的数据
 			// console.log(this.$router.options.routes[1].children);
 		},
-		methods:{
+		methods: {
 			// 监听路由的变化
-			routeHandle(route){
+			routeHandle(route) {
 				console.log('333');
 				// debugger;
 				var tab = this.mainTabs.filter(item => item.name === route.name)[0];
 				// 如果不存在tab 就进行添加操作
-				if(!tab){
+				if(!tab) {
 					var tab = {
-						name:route.name,       
-						title:route.meta.title,
-						path:route.path
+						name: route.name,
+						title: route.meta.title,
+						path: route.path
 					};
 					this.mainTabs = this.mainTabs.concat(tab);
 				}
 				this.mainTabsActiveName = tab.name;
 			},
-			initTab(){
+			initTab() {
 				// 初始化为空
 				this.mainTabs = [];
 				// 每次刷新页面 会保留最后一个tab标签页
@@ -107,64 +109,90 @@
 				};
 				this.mainTabs = this.mainTabs.concat(tab);
 				this.mainTabsActiveName = tab.name; */
-				
+
 				// 每次刷新页面  会显示home这个tab标签页
 				this.mainTabs = this.mainTabs.concat({
-						name:'home',
-						title:'首页',
-						path:'/home'
-					});
+					name: 'home',
+					title: '首页',
+					path: '/home'
+				});
 				this.mainTabsActiveName = 'home';
 			},
 			// 单击tab标签 实现内容的切换
-			selectedTabHandle(tab){
+			selectedTabHandle(tab) {
 				tab = this.mainTabs.filter(item => item.name === tab.name);
-				if (tab.length >= 1) {
-		          this.$router.push({ name: tab[0].name });
-		        }
+				if(tab.length >= 1) {
+					this.$router.push({
+						name: tab[0].name
+					});
+				}
 			},
-			removeTab(targetName){
+			removeTab(targetName) {
 				// console.log(targetName);   // 输出的name属性值  
 				let tabs = this.mainTabs;
-				let activeName = this.mainTabsActiveName;   // 当前活动的面板
+				let activeName = this.mainTabsActiveName; // 当前活动的面板
 				// 如果删除的是当前激活的tab,需要让其后一个tab进行active或者前一个
-				if(activeName === targetName){
-					tabs.forEach((tab,index)=>{
-						if(tab.name === targetName){
-							let nextTab = tabs[index+1]||tabs[index-1];
-							if(nextTab){
+				if(activeName === targetName) {
+					tabs.forEach((tab, index) => {
+						if(tab.name === targetName) {
+							let nextTab = tabs[index + 1] || tabs[index - 1];
+							if(nextTab) {
 								activeName = nextTab.name;
 							}
 						}
 					})
 				}
 				// 删除tab标签页
-				this.mainTabs = tabs.filter(tab=>tab.name!==targetName);
+				this.mainTabs = tabs.filter(tab => tab.name !== targetName);
 				// 设置active的tab
 				this.mainTabsActiveName = activeName;
-				this.$router.push({name:activeName});
+				this.$router.push({
+					name: activeName
+				});
 				// 首页这个tab标签不允许删除
-				if(this.mainTabs.length === 0){
+				if(this.mainTabs.length === 0) {
 					this.mainTabs = this.mainTabs.concat({
-						name:'home',
-						title:'首页',
-						path:'/home'
+						name: 'home',
+						title: '首页',
+						path: '/home'
 					});
 					this.mainTabsActiveName = 'home';
 				}
 			},
+			// 关闭当前标签
+			tabsCloseCurrentHandle() {
+
+			},
+			// 关闭其他标签
+			tabsCloseOtherHandle() {},
+			// 关闭全部标签
+			tabsCloseAllHandle() {
+
+			},
+			// 刷新当前标签
+			tabsRefreshCurrentHandle() {
+
+			}
 		},
-		computed:{
+		computed: {
 			mainTabs: {
-		        get () { return this.$store.state.common.mainTabs },
-		        set (val) { this.$store.commit('common/updateMainTabs', val) }
-		    },
-		    mainTabsActiveName: {
-		        get () { return this.$store.state.common.mainTabsActiveName },
-		        set (val) { this.$store.commit('common/updateMainTabsActiveName', val) }
-		    },
+				get() {
+					return this.$store.state.common.mainTabs
+				},
+				set(val) {
+					this.$store.commit('common/updateMainTabs', val)
+				}
+			},
+			mainTabsActiveName: {
+				get() {
+					return this.$store.state.common.mainTabsActiveName
+				},
+				set(val) {
+					this.$store.commit('common/updateMainTabsActiveName', val)
+				}
+			},
 		},
-		components:{
+		components: {
 			vHeader
 		}
 	}
