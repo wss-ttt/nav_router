@@ -65,20 +65,13 @@
 			$route: 'routeHandle'
 		},
 		mounted(){
-			console.log(this.$route);
-			var tab={
-				name:this.$route.name,
-				title:this.$route.meta.title,
-				path:this.$route.path
-			};
-			this.mainTabs = this.mainTabs.concat(tab);
-			this.mainTabsActiveName = tab.name;
-			 this.$router.push({name:'home'});
+			console.log('刷新页面会执行这个代码吗');
+			this.initTab();
 		},
 		methods:{
 			// 监听路由的变化
 			routeHandle(route){
-				console.log('111');
+				console.log('333');
 				// debugger;
 				var tab = this.mainTabs.filter(item => item.name === route.name)[0];
 				// 如果不存在tab 就进行添加操作
@@ -91,6 +84,26 @@
 					this.mainTabs = this.mainTabs.concat(tab);
 				}
 				this.mainTabsActiveName = tab.name;
+			},
+			initTab(){
+				// 初始化为空
+				this.mainTabs = [];
+				// 每次刷新页面 会保留最后一个tab标签页
+				/*var tab={
+					name:this.$route.name,
+					title:this.$route.meta.title,
+					path:this.$route.path
+				};
+				this.mainTabs = this.mainTabs.concat(tab);
+				this.mainTabsActiveName = tab.name; */
+				
+				// 每次刷新页面  会显示home这个tab标签页
+				this.mainTabs = this.mainTabs.concat({
+						name:'home',
+						title:'首页',
+						path:'/home'
+					});
+				this.mainTabsActiveName = 'home';
 			},
 			// 单击tab标签 实现内容的切换
 			selectedTabHandle(tab){
@@ -119,6 +132,15 @@
 				// 设置active的tab
 				this.mainTabsActiveName = activeName;
 				this.$router.push({name:activeName});
+				// 首页这个tab标签不允许删除
+				if(this.mainTabs.length === 0){
+					this.mainTabs = this.mainTabs.concat({
+						name:'home',
+						title:'首页',
+						path:'/home'
+					});
+					this.mainTabsActiveName = 'home';
+				}
 			},
 		},
 		computed:{
