@@ -7,7 +7,6 @@
 					<span>{{item.meta.title}}</span>
 				</el-menu-item>
 			</el-menu>-->
-
 			<el-menu background-color="#545c64"
 			 class="sidebar-el-menu"
 			 text-color="#fff"
@@ -28,7 +27,7 @@
 							 :index="subItem.path"
 							 :key="subItem.path" @click="goto(subItem)">
 								<i class="el-icon-document"></i>
-								<!--<span>{{item.path +'/'+subItem.path}}</span>-->
+								<!--<span>{{subItem.path}}</span>-->
 								<span>
 									{{subItem.meta.title}}
 								</span>
