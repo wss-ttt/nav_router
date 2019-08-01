@@ -13,6 +13,7 @@
 			 text-color="#fff"
 			 active-text-color="#ffd04b"
 			 default-active="this.$route.path"
+			 router
 			 >
 				<template v-for="(item,index) in $router.options.routes[1].children">
 					<!-- 有子项的 -->
@@ -130,6 +131,7 @@
 					this.mainTabs = this.mainTabs.concat(tab);
 				}
 				this.mainTabsActiveName = tab.name;
+				console.log(this.mainTabs);
 			},
 			initTab() {
 				// 初始化为空

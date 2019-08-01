@@ -15,7 +15,7 @@ export default new Router({
     	component: resolve => require(['@/views/main2.vue'], resolve),
     	children:[
     		{
-    			path: '/home',
+    			path: 'home',
     			name:'home',
     			meta:{
     				title:'首页'
@@ -23,7 +23,7 @@ export default new Router({
           component: resolve => require(['@/components/home.vue'], resolve),
     		},
     		{
-    			path: '/blog',
+    			path: 'blog',
     			name:'blog',
     			meta:{
     				title:'博客'
@@ -31,7 +31,7 @@ export default new Router({
           component: resolve => require(['@/components/blog.vue'], resolve),
     		},
     		{
-    			path: '/news',
+    			path: 'news',
     			name:'news',
     			meta:{
     				title:'新闻'
@@ -39,7 +39,7 @@ export default new Router({
           component: resolve => require(['@/components/news.vue'], resolve),
           children:[
           	{
-          		path:'/nba',
+          		path:'nba',
           		name:'nba',
           		meta:{
           			title:'NBA'
@@ -47,7 +47,7 @@ export default new Router({
           		component: resolve => require(['@/components/news/nba.vue'], resolve),
           	},
           	{
-          		path:'/football',
+          		path:'football',
           		name:'football',
           		meta:{
           			title:'足球'
@@ -57,7 +57,7 @@ export default new Router({
           ]
     		},
     		{
-    			path: '/photo',
+    			path: 'photo',
     			name:'photo',
     			meta:{
     				title:'相册'
