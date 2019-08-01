@@ -12,7 +12,7 @@
 			 class="sidebar-el-menu"
 			 text-color="#fff"
 			 active-text-color="#ffd04b"
-			 default-active="this.$route.path"
+			 :default-active="this.$route.name"
 			 router
 			 >
 				<template v-for="(item,index) in $router.options.routes[1].children">
@@ -22,15 +22,17 @@
 						 :key="item.path">
 							<template slot="title">
 								<i class="el-icon-document"></i>
-								<span>{{item.meta.title}}</span>
+								<span>{{item.path}}</span>
+								<!--<span>{{item.meta.title}}</span>-->
 							</template>
 							<el-menu-item v-for="(subItem,subIndex) in item.children"
-							 :index="subItem.path"
+							 :index="item.path +'/'+subItem.path"
 							 :key="subItem.path">
 								<i class="el-icon-document"></i>
-								<span>
+								<span>{{item.path +'/'+subItem.path}}</span>
+								<!--<span>
 									{{subItem.meta.title}}
-								</span>
+								</span>-->
 							</el-menu-item>
 						</el-submenu>
 					</template>
@@ -39,7 +41,8 @@
 						<el-menu-item :index="item.path"
 						 :key="item.path">
 							<i class="el-icon-document"></i>
-							<span>{{item.meta.title}}</span>
+							<span>{{item.path}}</span>
+							<!--<span>{{item.meta.title}}</span>-->
 						</el-menu-item>
 					</template>
 				</template>
@@ -47,8 +50,8 @@
 
 		</div>
 		<div class="content">
-			<!--<router-view></router-view>-->
-			<el-tabs v-model="mainTabsActiveName"
+			<router-view></router-view>
+			<!--<el-tabs v-model="mainTabsActiveName"
 			 closable
 			 @tab-remove="removeTab"
 			 @tab-click="selectedTabHandle">
@@ -70,7 +73,7 @@
 						<router-view></router-view>
 					</el-card>
 				</el-tab-pane>
-			</el-tabs>
+			</el-tabs>-->
 		</div>
 	</div>
 </template>
@@ -114,7 +117,9 @@
 			// console.log('刷新页面会执行这个代码吗');
 			this.initTab();
 			// 打印输出路由表里面的数据
-			// console.log(this.$router.options.routes[1].children);
+			console.log(this.$router.options.routes[1].children);
+			
+			console.log(this.$route.path);
 		},
 		methods: {
 			// 监听路由的变化
