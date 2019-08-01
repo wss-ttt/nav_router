@@ -121,7 +121,7 @@
 					path:this.$route.path
 				};
 				this.mainTabs = this.mainTabs.concat(tab);
-				this.mainTabsActiveName = tab.name; */
+				this.mainTabsActiveName = tab.name;*/ 
 
 				// 每次刷新页面  会显示home这个tab标签页
 				this.mainTabs = this.mainTabs.concat({
@@ -130,6 +130,8 @@
 					path: '/home'
 				});
 				this.mainTabsActiveName = 'home';
+				// 该行代码不能少
+				this.$router.push({name:'home'});
 			},
 			// 单击tab标签 实现内容的切换
 			selectedTabHandle(tab) {
@@ -170,6 +172,8 @@
 						path: '/home'
 					});
 					this.mainTabsActiveName = 'home';
+					// 同理该行代码是不能少的
+					this.$router.push({name:'home'});
 				}
 			},
 			// 关闭当前标签
