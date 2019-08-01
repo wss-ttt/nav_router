@@ -6,7 +6,7 @@
 			 background-color="#545c64"
 			 text-color="#fff"
 			 active-text-color="#ffd04b"
-			 :default-active="this.$route.path"
+			 :default-active="this.$route.name"
 			 router>
 				<!--循环的是items中的数据-->
 				<!--<el-menu-item v-for="(item,index) in items" 
@@ -26,8 +26,8 @@
 			</el-menu>
 		</div>
 		<div class="content">
-			<router-view></router-view>
-			<!--<el-tabs v-model="mainTabsActiveName"
+			<!--<router-view></router-view>-->
+			<el-tabs v-model="mainTabsActiveName"
 			 closable
 			 @tab-remove="removeTab"
 			 @tab-click="selectedTabHandle">
@@ -49,7 +49,7 @@
 						<router-view></router-view>
 					</el-card>
 				</el-tab-pane>
-			</el-tabs>-->
+			</el-tabs>
 		</div>
 	</div>
 </template>
