@@ -11,8 +11,8 @@ export default new Router({
   	},
     {
     	path:'/',
-    	name:'main',
-    	component: resolve => require(['@/views/main.vue'], resolve),
+    	name:'main2',
+    	component: resolve => require(['@/views/main2.vue'], resolve),
     	children:[
     		{
     			path: '/home',
@@ -37,6 +37,24 @@ export default new Router({
     				title:'新闻'
     			},
           component: resolve => require(['@/components/news.vue'], resolve),
+          children:[
+          	{
+          		path:'/nba',
+          		name:'nba',
+          		meta:{
+          			title:'NBA'
+          		},
+          		component: resolve => require(['@/components/news/nba.vue'], resolve),
+          	},
+          	{
+          		path:'/football',
+          		name:'football',
+          		meta:{
+          			title:'足球'
+          		},
+          		component: resolve => require(['@/components/news/football.vue'], resolve),
+          	}
+          ]
     		},
     		{
     			path: '/photo',
