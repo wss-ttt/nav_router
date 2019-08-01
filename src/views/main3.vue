@@ -98,7 +98,6 @@
 		methods: {
 			// 监听路由的变化
 			routeHandle(route) {
-				console.log('333');
 				// debugger;
 				var tab = this.mainTabs.filter(item => item.name === route.name)[0];
 				// 如果不存在tab 就进行添加操作
@@ -138,7 +137,7 @@
 				if(tab.length >= 1) {
 					this.$router.push({
 						name: tab[0].name
-					});
+					}); 
 				}
 			},
 			removeTab(targetName) {
