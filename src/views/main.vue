@@ -2,7 +2,12 @@
 	<div class="wrapper">
 		<v-header></v-header>
 		<div class="sidebar">
-			<el-menu class="sidebar-el-menu" background-color="#545c64" text-color="#fff" active-text-color="#ffd04b" :default-active="this.$route.path" router>
+			<el-menu class="sidebar-el-menu"
+			 background-color="#545c64"
+			 text-color="#fff"
+			 active-text-color="#ffd04b"
+			 :default-active="this.$route.path"
+			 router>
 				<!--循环的是items中的数据-->
 				<!--<el-menu-item v-for="(item,index) in items" 
 					:index="item.index" 
@@ -11,7 +16,9 @@
 					<span>{{item.title}}</span>
 				</el-menu-item>-->
 				<!--循环路由表中的数据-->
-				<el-menu-item v-for="(item,index) in $router.options.routes[1].children" :index="item.path" :key="item.path">
+				<el-menu-item v-for="(item,index) in $router.options.routes[1].children"
+				 :index="item.path"
+				 :key="item.path">
 					<!--因为我的路由表里面有icon 所以这里就不设置icon了-->
 					<!--<i :class="item.icon"></i>-->
 					<span>{{item.meta.title}}</span>
@@ -20,8 +27,12 @@
 		</div>
 		<div class="content">
 			<!--<router-view></router-view>-->
-			<el-tabs v-model="mainTabsActiveName" closable @tab-remove="removeTab" @tab-click="selectedTabHandle">
-				<el-dropdown class="site-tabs__tools" :show-timeout="0">
+			<el-tabs v-model="mainTabsActiveName"
+			 closable
+			 @tab-remove="removeTab"
+			 @tab-click="selectedTabHandle">
+				<el-dropdown class="site-tabs__tools"
+				 :show-timeout="0">
 					<i class="el-icon-arrow-down el-icon--right"></i>
 					<el-dropdown-menu slot="dropdown">
 						<el-dropdown-item @click.native="tabsCloseCurrentHandle">关闭当前标签页</el-dropdown-item>
@@ -30,7 +41,10 @@
 						<el-dropdown-item @click.native="tabsRefreshCurrentHandle">刷新当前标签页</el-dropdown-item>
 					</el-dropdown-menu>
 				</el-dropdown>
-				<el-tab-pane v-for="(item,index) in mainTabs" :label="item.title" :name="item.name" :key="item.name">
+				<el-tab-pane v-for="(item,index) in mainTabs"
+				 :label="item.title"
+				 :name="item.name"
+				 :key="item.name">
 					<el-card>
 						<router-view></router-view>
 					</el-card>

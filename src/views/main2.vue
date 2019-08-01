@@ -7,34 +7,52 @@
 					<span>{{item.meta.title}}</span>
 				</el-menu-item>
 			</el-menu>-->
-			
-			<el-menu background-color="#545c64" text-color="#fff" active-text-color="#ffd04b" default-active="this.$route.path">
+
+			<el-menu background-color="#545c64"
+			 class="sidebar-el-menu"
+			 text-color="#fff"
+			 active-text-color="#ffd04b"
+			 default-active="this.$route.path"
+			 >
 				<template v-for="(item,index) in $router.options.routes[1].children">
 					<!-- 有子项的 -->
 					<template v-if="item.children">
-						<el-submenu :index="item.path" :key="item.path">
+						<el-submenu :index="item.path"
+						 :key="item.path">
 							<template slot="title">
+								<i class="el-icon-document"></i>
 								<span>{{item.meta.title}}</span>
 							</template>
-							<el-menu-item v-for="(subItem,subIndex) in item.children" :index="subItem.path" :key="subItem.path">
-								<span>{{subItem.meta.title}}</span>
+							<el-menu-item v-for="(subItem,subIndex) in item.children"
+							 :index="subItem.path"
+							 :key="subItem.path">
+								<i class="el-icon-document"></i>
+								<span>
+									{{subItem.meta.title}}
+								</span>
 							</el-menu-item>
 						</el-submenu>
 					</template>
 					<!-- 没有子项的 -->
 					<template v-else>
-						<el-menu-item :index="item.path" :key="item.path">
+						<el-menu-item :index="item.path"
+						 :key="item.path">
+							<i class="el-icon-document"></i>
 							<span>{{item.meta.title}}</span>
 						</el-menu-item>
 					</template>
 				</template>
 			</el-menu>
-			
+
 		</div>
 		<div class="content">
 			<!--<router-view></router-view>-->
-			<el-tabs v-model="mainTabsActiveName" closable @tab-remove="removeTab" @tab-click="selectedTabHandle">
-				<el-dropdown class="site-tabs__tools" :show-timeout="0">
+			<el-tabs v-model="mainTabsActiveName"
+			 closable
+			 @tab-remove="removeTab"
+			 @tab-click="selectedTabHandle">
+				<el-dropdown class="site-tabs__tools"
+				 :show-timeout="0">
 					<i class="el-icon-arrow-down el-icon--right"></i>
 					<el-dropdown-menu slot="dropdown">
 						<el-dropdown-item @click.native="tabsCloseCurrentHandle">关闭当前标签页</el-dropdown-item>
@@ -43,7 +61,10 @@
 						<el-dropdown-item @click.native="tabsRefreshCurrentHandle">刷新当前标签页</el-dropdown-item>
 					</el-dropdown-menu>
 				</el-dropdown>
-				<el-tab-pane v-for="(item,index) in mainTabs" :label="item.title" :name="item.name" :key="item.name">
+				<el-tab-pane v-for="(item,index) in mainTabs"
+				 :label="item.title"
+				 :name="item.name"
+				 :key="item.name">
 					<el-card>
 						<router-view></router-view>
 					</el-card>
@@ -89,16 +110,14 @@
 			$route: 'routeHandle'
 		},
 		mounted() {
-			console.log('刷新页面会执行这个代码吗');
+			// console.log('刷新页面会执行这个代码吗');
 			this.initTab();
 			// 打印输出路由表里面的数据
 			// console.log(this.$router.options.routes[1].children);
-			console.log(this.$router.options.routes[1].children);
 		},
 		methods: {
 			// 监听路由的变化
 			routeHandle(route) {
-				console.log('333');
 				// debugger;
 				var tab = this.mainTabs.filter(item => item.name === route.name)[0];
 				// 如果不存在tab 就进行添加操作
