@@ -13,7 +13,6 @@
 			 text-color="#fff"
 			 active-text-color="#ffd04b"
 			 :default-active="this.$route.name"
-			 router
 			 >
 				<template v-for="(item,index) in $router.options.routes[1].children">
 					<!-- 有子项的 -->
@@ -22,27 +21,27 @@
 						 :key="item.path">
 							<template slot="title">
 								<i class="el-icon-document"></i>
-								<span>{{item.path}}</span>
-								<!--<span>{{item.meta.title}}</span>-->
+								<!--<span>{{item.path}}</span>-->
+								<span>{{item.meta.title}}</span>
 							</template>
 							<el-menu-item v-for="(subItem,subIndex) in item.children"
-							 :index="item.path +'/'+subItem.path"
-							 :key="subItem.path">
+							 :index="subItem.path"
+							 :key="subItem.path" @click="goto(subItem)">
 								<i class="el-icon-document"></i>
-								<span>{{item.path +'/'+subItem.path}}</span>
-								<!--<span>
+								<!--<span>{{item.path +'/'+subItem.path}}</span>-->
+								<span>
 									{{subItem.meta.title}}
-								</span>-->
+								</span>
 							</el-menu-item>
 						</el-submenu>
 					</template>
 					<!-- 没有子项的 -->
 					<template v-else>
 						<el-menu-item :index="item.path"
-						 :key="item.path">
+						 :key="item.path" @click="goto(item)">
 							<i class="el-icon-document"></i>
-							<span>{{item.path}}</span>
-							<!--<span>{{item.meta.title}}</span>-->
+							<!--<span>{{item.path}}</span>-->
+							<span>{{item.meta.title}}</span>
 						</el-menu-item>
 					</template>
 				</template>
@@ -198,6 +197,9 @@
 					});
 					this.mainTabsActiveName = 'home';
 				}
+			},
+			goto(item){
+				this.$router.push({name:item.name});
 			},
 			// 关闭当前标签
 			tabsCloseCurrentHandle() {

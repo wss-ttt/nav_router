@@ -6,7 +6,7 @@
 			 background-color="#545c64"
 			 text-color="#fff"
 			 active-text-color="#ffd04b"
-			 :default-active="this.$route.path"
+			 :default-active="this.$route.name"
 			 router>
 				<!--循环的是items中的数据-->
 				<!--<el-menu-item v-for="(item,index) in items" 
