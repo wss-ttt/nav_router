@@ -195,6 +195,7 @@
 						path: '/home'
 					});
 					this.mainTabsActiveName = 'home';
+					// 该行代码是不能少的
 					this.$router.push({name:'home'});
 				}
 			},
