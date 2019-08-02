@@ -11,8 +11,8 @@ export default new Router({
   	},
     {
     	path:'/',
-    	name:'main5',
-    	component: resolve => require(['@/views/main5.vue'], resolve),
+    	name:'main4',
+    	component: resolve => require(['@/views/main4.vue'], resolve),
     	children:[
     		{
     			path: 'home',

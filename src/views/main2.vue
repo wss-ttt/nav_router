@@ -195,6 +195,7 @@
 						path: '/home'
 					});
 					this.mainTabsActiveName = 'home';
+					this.$router.push({name:'home'});
 				}
 			},
 			goto(item){

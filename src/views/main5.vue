@@ -196,6 +196,7 @@
 						path: '/home'
 					});
 					this.mainTabsActiveName = 'home';
+					this.$router.push({name:'home'});
 				}
 			},
 			goto(item){
@@ -203,13 +204,16 @@
 			},
 			// 关闭当前标签
 			tabsCloseCurrentHandle() {
-
+				this.removeTab(this.mainTabsActiveName);
 			},
 			// 关闭其他标签
-			tabsCloseOtherHandle() {},
+			tabsCloseOtherHandle() {
+				
+			},
 			// 关闭全部标签
 			tabsCloseAllHandle() {
-
+				// 注意首页标签是删除不了的
+				this.initTab();
 			},
 			// 刷新当前标签
 			tabsRefreshCurrentHandle() {
