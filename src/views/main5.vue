@@ -11,8 +11,7 @@
 			 class="sidebar-el-menu"
 			 text-color="#fff"
 			 active-text-color="#ffd04b"
-			 :default-active="this.$route.name"
-			 >
+			 :default-active="this.$route.name">
 				<template v-for="(item,index) in $router.options.routes[1].children">
 					<!-- 有子项的 -->
 					<template v-if="item.children">
@@ -25,7 +24,8 @@
 							</template>
 							<el-menu-item v-for="(subItem,subIndex) in item.children"
 							 :index="subItem.path"
-							 :key="subItem.path" @click="goto(subItem)">
+							 :key="subItem.path"
+							 @click="goto(subItem)">
 								<i class="el-icon-document"></i>
 								<!--<span>{{subItem.path}}</span>-->
 								<span>
@@ -37,7 +37,8 @@
 					<!-- 没有子项的 -->
 					<template v-else>
 						<el-menu-item :index="item.path"
-						 :key="item.path" @click="goto(item)">
+						 :key="item.path"
+						 @click="goto(item)">
 							<i class="el-icon-document"></i>
 							<!--<span>{{item.path}}</span>-->
 							<span>{{item.meta.title}}</span>
@@ -68,7 +69,6 @@
 				 :name="item.name"
 				 :key="item.name">
 					<el-card>
-						<h1>main5</h1>
 						<router-view></router-view>
 					</el-card>
 				</el-tab-pane>
@@ -117,7 +117,7 @@
 			this.initTab();
 			// 打印输出路由表里面的数据
 			console.log(this.$router.options.routes[1].children);
-			
+
 			console.log(this.$route.path);
 		},
 		methods: {
@@ -156,6 +156,8 @@
 					path: '/home'
 				});
 				this.mainTabsActiveName = 'home';
+				// 该行代码不能少
+				this.$router.push({name:'home'});
 			},
 			// 单击tab标签 实现内容的切换
 			selectedTabHandle(tab) {
@@ -197,11 +199,15 @@
 					});
 					this.mainTabsActiveName = 'home';
 					// 该行代码是不能少的
-					this.$router.push({name:'home'});
+					this.$router.push({
+						name: 'home'
+					});
 				}
 			},
-			goto(item){
-				this.$router.push({name:item.name});
+			goto(item) {
+				this.$router.push({
+					name: item.name
+				});
 			},
 			// 关闭当前标签
 			tabsCloseCurrentHandle() {
@@ -209,7 +215,7 @@
 			},
 			// 关闭其他标签
 			tabsCloseOtherHandle() {
-				
+				this.mainTabs = this.mainTabs.filter(item => item.name === this.mainTabsActiveName);
 			},
 			// 关闭全部标签
 			tabsCloseAllHandle() {
@@ -218,7 +224,13 @@
 			},
 			// 刷新当前标签
 			tabsRefreshCurrentHandle() {
-
+				var tempTabName = this.mainTabsActiveName
+				this.removeTab(tempTabName)
+				this.$nextTick(() => {
+					this.$router.push({
+						name: tempTabName
+					})
+				})
 			}
 		},
 		computed: {
