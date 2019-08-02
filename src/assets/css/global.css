@@ -18,8 +18,21 @@ ul,li{
     z-index: 9999;
 }
 .site-tabs__tools{
-	position: absolute;
+	position: fixed;
 	right: 0;
+	top:50px;
+	background-color: #f1f4f5;
+	z-index: 99999;
+	height: 40px;
+	line-height: 40px;
+	font-size:16px;
+	padding: 0 15px;
+}
+.el-tabs__nav-wrap{
+	margin-bottom: 0;
+}
+.el-tabs__nav-wrap:after{
+	display: none;
 }
 .el-card{
 	border: none;

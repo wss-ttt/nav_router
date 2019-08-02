@@ -68,6 +68,7 @@
 				 :name="item.name"
 				 :key="item.name">
 					<el-card>
+						<h1>main5</h1>
 						<router-view></router-view>
 					</el-card>
 				</el-tab-pane>
