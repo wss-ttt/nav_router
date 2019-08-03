@@ -15,7 +15,7 @@ export default new Router({
     	component: resolve => require(['@/views/main5.vue'], resolve),
     	children:[
     		{
-    			path:'/introduce',
+    			path:'introduce',
     			name:'introduce',
     			meta:{
     				title:'项目介绍',
