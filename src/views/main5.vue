@@ -48,9 +48,10 @@
 			</el-menu>
 
 		</div>
-		<div class="content">
+		<div class="content" :class="{'content-tabs':!$route.meta.isTab}">
 			<!--<router-view></router-view>-->
 			<el-tabs v-model="mainTabsActiveName"
+			 v-if="$route.meta.isTab"
 			 closable
 			 @tab-remove="removeTab"
 			 @tab-click="selectedTabHandle">
@@ -73,6 +74,9 @@
 					</el-card>
 				</el-tab-pane>
 			</el-tabs>
+			<el-card v-else>
+				<router-view />
+			</el-card>
 		</div>
 	</div>
 </template>
@@ -113,51 +117,32 @@
 			$route: 'routeHandle'
 		},
 		mounted() {
-			// console.log('刷新页面会执行这个代码吗');
 			this.initTab();
-			// 打印输出路由表里面的数据
-			console.log(this.$router.options.routes[1].children);
-
-			console.log(this.$route.path);
 		},
 		methods: {
 			// 监听路由的变化
 			routeHandle(route) {
-				// debugger;
-				var tab = this.mainTabs.filter(item => item.name === route.name)[0];
-				// 如果不存在tab 就进行添加操作
-				if(!tab) {
-					var tab = {
-						name: route.name,
-						title: route.meta.title,
-						path: route.path
-					};
-					this.mainTabs = this.mainTabs.concat(tab);
+				if(route.meta.isTab) {
+					console.log('routeHandle--方法执行了没');
+					var tab = this.mainTabs.filter(item => item.name === route.name)[0];
+					// 如果不存在tab 就进行添加操作
+					if(!tab) {
+						var tab = {
+							name: route.name,
+							title: route.meta.title,
+							path: route.path
+						};
+						this.mainTabs = this.mainTabs.concat(tab);
+					}
+					this.mainTabsActiveName = tab.name;
+					console.log(this.mainTabs);
 				}
-				this.mainTabsActiveName = tab.name;
-				console.log(this.mainTabs);
 			},
 			initTab() {
-				// 初始化为空
+				// 清空操作
 				this.mainTabs = [];
-				// 每次刷新页面 会保留最后一个tab标签页
-				/*var tab={
-					name:this.$route.name,
-					title:this.$route.meta.title,
-					path:this.$route.path
-				};
-				this.mainTabs = this.mainTabs.concat(tab);
-				this.mainTabsActiveName = tab.name; */
-
-				// 每次刷新页面  会显示home这个tab标签页
-				this.mainTabs = this.mainTabs.concat({
-					name: 'home',
-					title: '首页',
-					path: '/home'
-				});
-				this.mainTabsActiveName = 'home';
 				// 该行代码不能少
-				this.$router.push({name:'home'});
+				this.$router.push({name:'introduce'});
 			},
 			// 单击tab标签 实现内容的切换
 			selectedTabHandle(tab) {
@@ -169,14 +154,16 @@
 				}
 			},
 			removeTab(targetName) {
-				// console.log(targetName);   // 输出的name属性值  
+				console.log('removeTab--执行了没');
 				let tabs = this.mainTabs;
 				let activeName = this.mainTabsActiveName; // 当前活动的面板
 				// 如果删除的是当前激活的tab,需要让其后一个tab进行active或者前一个
 				if(activeName === targetName) {
+					console.log('这个代码会执行吗')
 					tabs.forEach((tab, index) => {
 						if(tab.name === targetName) {
 							let nextTab = tabs[index + 1] || tabs[index - 1];
+							console.log(nextTab);
 							if(nextTab) {
 								activeName = nextTab.name;
 							}
@@ -187,20 +174,16 @@
 				this.mainTabs = tabs.filter(tab => tab.name !== targetName);
 				// 设置active的tab
 				this.mainTabsActiveName = activeName;
+				console.log('是有数据的', this.mainTabsActiveName);
 				this.$router.push({
 					name: activeName
 				});
 				// 首页这个tab标签不允许删除
+				console.log('长度:',this.mainTabs.length)
 				if(this.mainTabs.length === 0) {
-					this.mainTabs = this.mainTabs.concat({
-						name: 'home',
-						title: '首页',
-						path: '/home'
-					});
-					this.mainTabsActiveName = 'home';
 					// 该行代码是不能少的
 					this.$router.push({
-						name: 'home'
+						name: 'introduce'
 					});
 				}
 			},
@@ -224,8 +207,8 @@
 			},
 			// 刷新当前标签
 			tabsRefreshCurrentHandle() {
-				var tempTabName = this.mainTabsActiveName
-				this.removeTab(tempTabName)
+				var tempTabName = this.mainTabsActiveName;
+				this.removeTab(tempTabName);
 				this.$nextTick(() => {
 					this.$router.push({
 						name: tempTabName
@@ -280,5 +263,8 @@
 		background-color: #ccc;
 		padding: 55px 30px 30px;
 		overflow-y: auto;
+	}
+	.content-tabs{
+		padding-top: 30px;
 	}
 </style>
