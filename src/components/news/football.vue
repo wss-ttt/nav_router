@@ -5,6 +5,14 @@
 </template>
 
 <script>
+export default {
+	name: 'football',
+	data() {
+		return {
+			
+		}
+	}
+}
 </script>
 
 <style>

@@ -9,6 +9,14 @@
 </template>
 
 <script>
+export default {
+	name: 'introduce',
+	data() {
+		return {
+			
+		}
+	}
+}
 </script>
 
 <style>

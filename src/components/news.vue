@@ -6,6 +6,14 @@
 </template>
 
 <script>
+export default {
+	name: 'news',
+	data() {
+		return {
+			
+		}
+	}
+}
 </script>
 
 <style>

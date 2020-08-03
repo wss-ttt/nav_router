@@ -5,6 +5,14 @@
 </template>
 
 <script>
+export default {
+	name: 'photo',
+	data() {
+		return {
+			
+		}
+	}
+}
 </script>
 
 <style>
