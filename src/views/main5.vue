@@ -72,7 +72,7 @@
 				 :label="item.title"
 				 :name="item.name"
 				 :key="item.name">
-					<el-card>
+					<el-card :body-style="siteContentViewHeight">
 						<!-- 缓存组件 -->
 						<keep-alive>
 							<router-view v-if="item.name === mainTabsActiveName"></router-view>
@@ -81,7 +81,7 @@
 				</el-tab-pane>
 			</el-tabs>
 			<!-- 这个地方是不显示tab标签 -->
-			<el-card v-else>
+			<el-card v-else :body-style="siteContentViewHeight">
 				<!-- 缓存组件 -->
 				<keep-alive>
 					<router-view />
@@ -128,6 +128,7 @@
 			$route: 'routeHandle'
 		},
 		mounted() {
+			this.getDocumentHeight()
 			this.initTab();
 		},
 		methods: {
@@ -218,6 +219,12 @@
 						name: tempTabName
 					})
 				})
+			},
+			getDocumentHeight() {
+				this.documentClientHeight = document.documentElement['clientHeight']
+				window.addEventListener('resise', () => {
+					this.documentClientHeight = document.documentElement['clientHeight']
+				})
 			}
 		},
 		computed: {
@@ -239,7 +246,29 @@
 			},
 			...mapState({
 				sidebarFold: state => state.common.sidebarFold
-			})
+			}),
+			documentClientHeight: {
+				get() {
+					return this.$store.state.common.documentClientHeight
+				},
+				set(val) {
+					this.$store.commit('common/updateDocumentClientHeight', val)
+				}
+			},
+			siteContentViewHeight() {
+				let height = this.documentClientHeight
+				if (this.$route.meta.isTab) {
+					height = height - 50 - 40 - 15 - 30
+					return {
+						minHeight: height + 'px'
+					}
+				} else {
+					height = height - 50 - 30 -30
+					return {
+						minHeight: height + 'px'
+					}
+				}
+			}
 		},
 		components: {
 			vHeader
