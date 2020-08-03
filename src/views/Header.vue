@@ -1,58 +1,53 @@
 <template>
-  <div class="test">
-    <header>
-      <!--左边-->
-      <div class="header-left">
-        <!--折叠按钮-->
-        <div class="collapse-btn">
-          <i class="el-icon-menu"></i>
-        </div>
-        <div class="logo">后台管理系统</div>
+  <header>
+    <!--左边-->
+    <div class="header-left">
+      <!--折叠按钮-->
+      <div class="collapse-btn" @click="sidebarFold = !sidebarFold">
+        <i class="el-icon-menu"></i>
       </div>
-      <!--右边-->
-      <div class="header-right">
-        <!--全屏按钮-->
-        <div class="fullscreen" @click="handleFullScreen">
-          <el-tooltip effect="dark" placement="bottom" :content="fullscreen?'取消全屏':'全屏'">
-            <i class="el-icon-rank"></i>
-          </el-tooltip>
-        </div>
-        <!--消息中心-->
-        <div class="btn-bell">
-          <el-tooltip effect="dark" :content="message?`有${message}条未读信息`:`消息中心`">
-            <i class="el-icon-bell"></i>
-          </el-tooltip>
-          <span class="btn-bell-badge" v-if="message"></span>
-        </div>
-        <!--用户图像-->
-        <div class="user-avator">
-          <!--<img src="../../assets/img/img.jpg">-->
-          <img src="~@/assets/img/img.jpg" />
-        </div>
-        <!--个人中心-->
-        <div class="user-name">
-          <el-dropdown trigger="click" @command="handleCommand">
-            <span class="el-dropdown-link">
-              {{username}}
-              <i class="el-icon-caret-bottom"></i>
-            </span>
-            <el-dropdown-menu slot="dropdown">
-              <a href="#">
-                <el-dropdown-item command="个人中心">个人中心</el-dropdown-item>
-              </a>
-              <a href="#">
-                <el-dropdown-item command="仓库地址">仓库地址</el-dropdown-item>
-              </a>
-              <el-dropdown-item divided>退出登录</el-dropdown-item>
-            </el-dropdown-menu>
-          </el-dropdown>
-        </div>
-      </div>
-    </header>
-    <div class="content">
-      <h1>给我一首歌的时间</h1>
+      <div class="logo">后台管理系统</div>
     </div>
-  </div>
+    <!--右边-->
+    <div class="header-right">
+      <!--全屏按钮-->
+      <div class="fullscreen" @click="handleFullScreen">
+        <el-tooltip effect="dark" placement="bottom" :content="fullscreen?'取消全屏':'全屏'">
+          <i class="el-icon-rank"></i>
+        </el-tooltip>
+      </div>
+      <!--消息中心-->
+      <div class="btn-bell">
+        <el-tooltip effect="dark" :content="message?`有${message}条未读信息`:`消息中心`">
+          <i class="el-icon-bell"></i>
+        </el-tooltip>
+        <span class="btn-bell-badge" v-if="message"></span>
+      </div>
+      <!--用户图像-->
+      <div class="user-avator">
+        <!--<img src="../../assets/img/img.jpg">-->
+        <img src="~@/assets/img/img.jpg" />
+      </div>
+      <!--个人中心-->
+      <div class="user-name">
+        <el-dropdown trigger="click" @command="handleCommand">
+          <span class="el-dropdown-link">
+            {{username}}
+            <i class="el-icon-caret-bottom"></i>
+          </span>
+          <el-dropdown-menu slot="dropdown">
+            <a href="#">
+              <el-dropdown-item command="个人中心">个人中心</el-dropdown-item>
+            </a>
+            <a href="#">
+              <el-dropdown-item command="仓库地址">仓库地址</el-dropdown-item>
+            </a>
+            <el-dropdown-item divided>退出登录</el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
+      </div>
+    </div>
+  </header>
 </template>
 
 <script>
@@ -63,6 +58,16 @@ export default {
       username: 'admin',
       message: 2, // 消息中心
       fullscreen: false // 控制全屏文字的切换 "全屏"||"取消全屏"
+    }
+  },
+  computed: {
+    sidebarFold: {
+      get() {
+        return this.$store.state.common.sidebarFold
+      },
+      set(val) {
+        this.$store.commit('common/updateSidebarFold', val)
+      }
     }
   },
   created() {
