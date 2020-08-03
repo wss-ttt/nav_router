@@ -18,14 +18,17 @@
 </template>
 
 <script>
+  import {
+    login
+  } from '@/api/user'
   export default {
     components: {},
     props: {},
     data() {
       return {
         dataForm: {
-          name: '',
-          password: ''
+          name: 'admin',
+          password: 'admin'
         },
         rules: {
           name: [{
@@ -53,7 +56,18 @@
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            alert('submit!');
+            login({
+              name: this.dataForm.name,
+              password: this.dataForm.password
+            }).then(res => {
+              if(res.code === 0) {
+                this.$router.push({
+                  path: '/'
+                })
+              } else {
+                this.$message.error(res.msg)
+              }
+            })
           } else {
             console.log('error submit!!');
             return false;
@@ -79,10 +93,12 @@
       padding: 30px;
       border-radius: 4px;
       background: #fff;
+
       h2 {
         text-align: center;
         padding-bottom: 10px;
       }
+
       .login-btn {
         width: 100%;
         height: 40px;
