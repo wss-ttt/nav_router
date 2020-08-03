@@ -258,12 +258,12 @@
 			siteContentViewHeight() {
 				let height = this.documentClientHeight
 				if (this.$route.meta.isTab) {
-					height = height - 50 - 40 - 15 - 30
+					height = height - 50 - 40 - 15 - 15
 					return {
 						minHeight: height + 'px'
 					}
 				} else {
-					height = height - 50 - 30 -30
+					height = height - 50 - 15 - 15
 					return {
 						minHeight: height + 'px'
 					}
@@ -297,13 +297,13 @@
 		bottom: 0;
 		padding: 30px;
 		background-color: #ccc;
-		padding: 55px 30px 30px;
+		padding: 55px 20px 15px;
 		overflow-y: auto;
 		&.content-collapse {
 			left: 64px;
 		}
 	}
 	.content-tabs{
-		padding-top: 30px;
+		padding-top: 15px;
 	}
 </style>
