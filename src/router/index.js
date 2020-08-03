@@ -13,7 +13,12 @@ export default new Router({
   	{
   		path:'/',
   		redirect: '/home'
-  	},
+		},
+		{
+			path: '/login',
+			name: 'login',
+			component: resolve => require(['@/views/login.vue'], resolve)
+		},
     {
     	path:'/',
     	name:'main5',
