@@ -3,7 +3,8 @@ export default {
   state: {
   	documentClientHeight:'',
   	mainTabs:[],
-  	mainTabsActiveName:''
+    mainTabsActiveName:'',
+    sidebarFold: false, // 侧边栏的折叠状态
   },
   mutations: {
   	updateMainTabs (state, tabs) {
@@ -15,6 +16,9 @@ export default {
     updateDocumentClientHeight(state,documentClientHeight){
     	console.log('updateDocumentClientHeight--mutations');
     	state.documentClientHeight = documentClientHeight;
+    },
+    updateSidebarFold(state, sidebarFold) {
+      state.sidebarFold = sidebarFold
     }
   }
 }
