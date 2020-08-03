@@ -64,6 +64,7 @@
                 this.$router.push({
                   path: '/'
                 })
+                this.$store.commit('common/updateHasLogin', true)
               } else {
                 this.$message.error(res.msg)
               }
@@ -107,6 +108,7 @@
         outline: none;
         font-size: 20px;
         color: #fff;
+        cursor: pointer;
       }
     }
   }
