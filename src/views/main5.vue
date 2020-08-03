@@ -7,11 +7,13 @@
 					<span>{{item.meta.title}}</span>
 				</el-menu-item>
 			</el-menu>-->
-			<el-menu background-color="#545c64"
+			<el-menu background-color="#006f69"
 			 class="sidebar-el-menu"
 			 text-color="#fff"
 			 active-text-color="#ffd04b"
-			 :default-active="this.$route.name">
+			 :default-active="this.$route.name"
+			 :collapseTransition="false"
+			 :collapse="sidebarFold">
 				<template v-for="(item,index) in $router.options.routes[1].children">
 					<!-- 有子项的 -->
 					<template v-if="item.children">
@@ -48,7 +50,8 @@
 			</el-menu>
 
 		</div>
-		<div class="content" :class="{'content-tabs':!$route.meta.isTab}">
+		<!-- <div class="content" :class="{'content-tabs':!$route.meta.isTab}"> -->
+		<div class="content" :class="[{'content-tabs':!$route.meta.isTab, 'content-collapse': sidebarFold}]">
 			<!--<router-view></router-view>-->
 			<el-tabs v-model="mainTabsActiveName"
 			 v-if="$route.meta.isTab"
@@ -89,6 +92,7 @@
 </template>
 <script>
 	import vHeader from './Header.vue'
+	import { mapState } from 'vuex'
 	export default {
 		name: '',
 		data() {
@@ -233,20 +237,23 @@
 					this.$store.commit('common/updateMainTabsActiveName', val)
 				}
 			},
+			...mapState({
+				sidebarFold: state => state.common.sidebarFold
+			})
 		},
 		components: {
 			vHeader
 		}
 	}
 </script>
-<style>
+<style scoped lang="scss">
 	.sidebar {
 		/*width: 250px;*/
 		position: absolute;
 		top: 50px;
 		left: 0;
 		bottom: 0;
-		border: 1px solid #ddd;
+		background: #006f69;
 	}
 	
 	.sidebar-el-menu:not(.el-menu--collapse) {
@@ -263,6 +270,9 @@
 		background-color: #ccc;
 		padding: 55px 30px 30px;
 		overflow-y: auto;
+		&.content-collapse {
+			left: 64px;
+		}
 	}
 	.content-tabs{
 		padding-top: 30px;
