@@ -38,19 +38,28 @@ export default new Router({
           component: resolve => require(['@/components/home.vue'], resolve),
     		},
     		{
-    			path: 'blog',
-    			name:'blog',
+    			path: 'map',
+    			name:'map',
     			meta:{
-    				title:'博客',
+    				title:'地图',
     				isTab:true,
     			},
           component: resolve => require(['@/components/blog.vue'], resolve),
+				},
+				{
+    			path: 'photo',
+    			name:'photo',
+    			meta:{
+    				title:'相册',
+    				isTab:true
+    			},
+          component: resolve => require(['@/components/photo.vue'], resolve),
     		},
     		{
-    			path: 'news',
-    			name:'news',
+    			path: 'system',
+    			name:'system',
     			meta:{
-    				title:'新闻',
+    				title:'系统管理',
     				isTab:true
     			},
           component: resolve => require(['@/components/news.vue'], resolve),
@@ -74,16 +83,7 @@ export default new Router({
           		component: resolve => require(['@/components/news/football.vue'], resolve),
           	}
           ]
-    		},
-    		{
-    			path: 'photo',
-    			name:'photo',
-    			meta:{
-    				title:'相册',
-    				isTab:true
-    			},
-          component: resolve => require(['@/components/photo.vue'], resolve),
-    		},
+    		}
     	]
     }
   ]
