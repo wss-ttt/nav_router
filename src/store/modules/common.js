@@ -5,6 +5,7 @@ export default {
   	mainTabs:[],
     mainTabsActiveName:'',
     sidebarFold: false, // 侧边栏的折叠状态
+    documentClientHeight: '', // 可视区域的高度
   },
   mutations: {
   	updateMainTabs (state, tabs) {
@@ -19,6 +20,9 @@ export default {
     },
     updateSidebarFold(state, sidebarFold) {
       state.sidebarFold = sidebarFold
+    },
+    updateDocumentClientHeight(state, documentClientHeight) {
+      state.documentClientHeight = documentClientHeight
     }
   }
 }
