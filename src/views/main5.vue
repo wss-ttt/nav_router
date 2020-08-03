@@ -70,12 +70,19 @@
 				 :name="item.name"
 				 :key="item.name">
 					<el-card>
-						<router-view></router-view>
+						<!-- 缓存组件 -->
+						<keep-alive>
+							<router-view v-if="item.name === mainTabsActiveName"></router-view>
+						</keep-alive>
 					</el-card>
 				</el-tab-pane>
 			</el-tabs>
+			<!-- 这个地方是不显示tab标签 -->
 			<el-card v-else>
-				<router-view />
+				<!-- 缓存组件 -->
+				<keep-alive>
+					<router-view />
+				</keep-alive>
 			</el-card>
 		</div>
 	</div>
@@ -118,13 +125,11 @@
 		},
 		mounted() {
 			this.initTab();
-			console.log(this.$route);
 		},
 		methods: {
 			// 监听路由的变化
 			routeHandle(route) {
 				if(route.meta.isTab) {
-					console.log('routeHandle--方法执行了没');
 					var tab = this.mainTabs.filter(item => item.name === route.name)[0];
 					// 如果不存在tab 就进行添加操作
 					if(!tab) {
@@ -136,7 +141,6 @@
 						this.mainTabs = this.mainTabs.concat(tab);
 					}
 					this.mainTabsActiveName = tab.name;
-					console.log(this.mainTabs);
 				}
 			},
 			initTab() {
@@ -155,16 +159,13 @@
 				}
 			},
 			removeTab(targetName) {
-				console.log('removeTab--执行了没');
 				let tabs = this.mainTabs;
 				let activeName = this.mainTabsActiveName; // 当前活动的面板
 				// 如果删除的是当前激活的tab,需要让其后一个tab进行active或者前一个
 				if(activeName === targetName) {
-					console.log('这个代码会执行吗')
 					tabs.forEach((tab, index) => {
 						if(tab.name === targetName) {
 							let nextTab = tabs[index + 1] || tabs[index - 1];
-							console.log(nextTab);
 							if(nextTab) {
 								activeName = nextTab.name;
 							}
@@ -175,12 +176,10 @@
 				this.mainTabs = tabs.filter(tab => tab.name !== targetName);
 				// 设置active的tab
 				this.mainTabsActiveName = activeName;
-				console.log('是有数据的', this.mainTabsActiveName);
 				this.$router.push({
 					name: activeName
 				});
 				// 首页这个tab标签不允许删除
-				console.log('长度:',this.mainTabs.length)
 				if(this.mainTabs.length === 0) {
 					// 该行代码是不能少的
 					this.$router.push({
