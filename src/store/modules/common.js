@@ -6,6 +6,7 @@ export default {
     mainTabsActiveName:'',
     sidebarFold: false, // 侧边栏的折叠状态
     documentClientHeight: '', // 可视区域的高度
+    hasLogin: false, // 表示是否已经登录了
   },
   mutations: {
   	updateMainTabs (state, tabs) {
@@ -23,6 +24,9 @@ export default {
     },
     updateDocumentClientHeight(state, documentClientHeight) {
       state.documentClientHeight = documentClientHeight
+    },
+    updateHasLogin(state, hasLogin) {
+      state.hasLogin = hasLogin
     }
   }
 }
