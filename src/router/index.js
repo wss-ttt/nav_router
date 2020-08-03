@@ -3,6 +3,11 @@ import Router from 'vue-router'
 
 Vue.use(Router)
 
+// 处理点击重复菜单报错问题
+const originalPush = Router.prototype.push // 缓存原型对象上的push方法
+Router.prototype.push = function (location) {
+   return originalPush.call(this, location).catch(err => err)
+}
 export default new Router({
   routes: [
   	{
