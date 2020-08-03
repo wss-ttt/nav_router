@@ -21,7 +21,7 @@
 						 :key="item.path">
 							<template slot="title">
 								<i class="el-icon-document"></i>
-								<span>{{item.path}}</span>
+								<!-- <span>{{item.path}}</span> -->
 								<span>{{item.meta.title}}</span>
 							</template>
 							<el-menu-item v-for="(subItem,subIndex) in item.children"
@@ -42,7 +42,7 @@
 						 :key="item.path"
 						 @click="goto(item)">
 							<i class="el-icon-document"></i>
-							<span>{{item.path}}</span>
+							<!-- <span>{{item.path}}</span> -->
 							<span>{{item.meta.title}}</span>
 						</el-menu-item>
 					</template>
