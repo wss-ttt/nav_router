@@ -17,6 +17,5 @@ export default {
 
 <style scoped="scoped">
 	.home{
-		height: 1000px;
 	}
 </style>
