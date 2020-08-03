@@ -11,6 +11,22 @@ import '@/assets/css/global.scss'
 Vue.use(ElementUI)
 Vue.config.productionTip = false
 
+// 添加全局路由守卫
+router.beforeEach((to, from, next) => {
+  const token = store.state.common.hasLogin
+  if (token) {
+    next()
+  } else {
+    if (to.path === '/login') {
+      next()
+    } else {
+      next({
+        name: 'login'
+      })
+    }
+  }
+})
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
