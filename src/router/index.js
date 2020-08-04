@@ -22,10 +22,19 @@ export default new Router({
     			name:'introduce',
     			meta:{
     				title:'项目介绍',
-    				meta:false
+    				isTab:false
     			},
-    			component: resolve => require(['@/components/introduce.vue'], resolve),
-    		},
+    			component: resolve => require(['@/components/introduce.vue'], resolve)
+				},
+				{
+					path: 'table',
+					name: 'table',
+					meta: {
+						title: 'table',
+						isTab: true
+					},
+					component: resolve => require(['@/views/modules/table.vue'], resolve)
+				},
     		{
     			path: 'home',
     			name:'home',
