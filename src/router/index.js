@@ -35,6 +35,15 @@ export default new Router({
 					},
 					component: resolve => require(['@/views/modules/table.vue'], resolve)
 				},
+				{
+					path: 'echarts',
+					name: 'Echarts',
+					meta: {
+						title: 'echarts',
+						isTab: true
+					},
+					component: resolve => require(['@/views/modules/echarts.vue'], resolve)
+				},
     		{
     			path: 'home',
     			name:'home',
