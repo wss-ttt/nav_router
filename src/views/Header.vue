@@ -32,7 +32,7 @@
       <div class="user-name">
         <el-dropdown trigger="click" @command="handleCommand">
           <span class="el-dropdown-link">
-            {{username}}
+            {{name}}
             <i class="el-icon-caret-bottom"></i>
           </span>
           <el-dropdown-menu slot="dropdown">
@@ -51,11 +51,11 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   name: '',
   data() {
     return {
-      username: 'admin',
       message: 2, // 消息中心
       fullscreen: false // 控制全屏文字的切换 "全屏"||"取消全屏"
     }
@@ -68,7 +68,10 @@ export default {
       set(val) {
         this.$store.commit('common/updateSidebarFold', val)
       }
-    }
+    },
+    ...mapState({
+      name: state => state.common.name
+    })
   },
   created() {
     window.addEventListener('keydown', this.quit)
