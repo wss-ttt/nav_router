@@ -13,7 +13,7 @@ Vue.config.productionTip = false
 
 // 添加全局路由守卫
 router.beforeEach((to, from, next) => {
-  const token = store.state.common.hasLogin
+  const token = sessionStorage.getItem('hasLogin')
   if (token) {
     next()
   } else {
