@@ -26,17 +26,17 @@
 
     <!-- 新增和修改 -->
     <el-dialog :title="title" :visible.sync="open" width="30%">
-      <el-form ref="form" :model="form" label-width="80px">
-        <el-form-item label="用户名">
+      <el-form ref="form" :model="form" :rules="rules" label-width="80px">
+        <el-form-item label="用户名" prop="name">
           <el-input v-model="form.name"></el-input>
         </el-form-item>
-        <el-form-item label="性别">
+        <el-form-item label="性别" prop="sex">
           <el-radio-group v-model="form.sex">
             <el-radio label="男"></el-radio>
             <el-radio label="女"></el-radio>
           </el-radio-group>
         </el-form-item>
-        <el-form-item label="年龄">
+        <el-form-item label="年龄" prop="age">
           <el-input v-model.number="form.age"></el-input>
         </el-form-item>
       </el-form>
@@ -67,7 +67,24 @@
         form: {}, // 新增和修改
         list: [],
         title: '', // 弹出框的标题
-        open: false // 新增和修改弹出框的显示和隐藏
+        open: false, // 新增和修改弹出框的显示和隐藏
+        rules: {
+          name: [{
+            required: true,
+            message: '用户名不能为空',
+            trigger: 'blur'
+          }],
+          sex: [{
+            required: true,
+            message: '性别不能为空',
+            trigger: 'blur'
+          }],
+          age: [{
+            required: true,
+            message: '年龄不能为空',
+            trigger: 'blur'
+          }]
+        }
       }
     },
     computed: {},
@@ -129,37 +146,43 @@
         this.$refs['form'].resetFields();
       },
       submitForm() {
-        if(this.form.id !== undefined) {
-          // 修改操作
-          editUser(this.form).then(res => {
-            if(res.code === 0) {
-              this.getList()
-              this.$message.success('修改成功')
-              this.open = false
+        this.$refs['form'].validate(valid => {
+          if(valid) {
+            if(this.form.id !== undefined) {
+              // 修改操作
+              editUser(this.form).then(res => {
+                if(res.code === 0) {
+                  this.getList()
+                  this.$message.success('修改成功')
+                  this.open = false
+                } else {
+                  this.$message.error('修改失败,请重试')
+                  this.open = false
+                }
+              }).catch(error => {
+                this.$message.error('请求异常,请重试')
+                this.open = false
+              })
             } else {
-              this.$message.error('修改失败,请重试')
-              this.open = false
+              // 新增操作
+              addUser(this.form).then(res => {
+                if(res.code === 0) {
+                  this.getList()
+                  this.$message.success('添加成功')
+                  this.open = false
+                } else {
+                  this.$message.error('添加事变,请重试')
+                  this.open = false
+                }
+              }).catch(error => {
+                this.$message.error('请求异常,请重试')
+                this.open = false
+              })
             }
-          }).catch(error => {
-            this.$message.error('请求异常,请重试')
-            this.open = false
-          })
-        } else {
-          // 新增操作
-          addUser(this.form).then(res => {
-            if(res.code === 0) {
-              this.getList()
-              this.$message.success('添加成功')
-              this.open = false
-            } else {
-              this.$message.error('添加事变,请重试')
-              this.open = false
-            }
-          }).catch(error => {
-            this.$message.error('请求异常,请重试')
-            this.open = false
-          })
-        }
+          } else {
+            return false
+          }
+        })
       }
     },
     filters: {}
