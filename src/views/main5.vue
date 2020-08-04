@@ -227,7 +227,7 @@
 			},
 			getDocumentHeight() {
 				this.documentClientHeight = document.documentElement['clientHeight']
-				window.addEventListener('resise', () => {
+				window.addEventListener('resize', () => {
 					this.documentClientHeight = document.documentElement['clientHeight']
 				})
 			}
