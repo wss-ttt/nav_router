@@ -65,6 +65,7 @@
                   path: '/'
                 })
                 this.$store.commit('common/updateHasLogin', true)
+                this.$store.commit('common/updateName', this.dataForm.name)
               } else {
                 this.$message.error(res.msg)
               }
