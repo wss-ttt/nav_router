@@ -121,7 +121,12 @@
         this.open = true
       },
       cancel() {
+        this.reset()
         this.open = false
+      },
+      reset() {
+        this.form = {}
+        this.$refs['form'].resetFields();
       },
       submitForm() {
         if(this.form.id !== undefined) {
