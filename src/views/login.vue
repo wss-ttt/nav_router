@@ -65,11 +65,12 @@
             }).then(res => {
               if(res.code === 0) {
                 this.loading = false
-                this.$router.push({
-                  path: '/'
-                })
+                // 下面两行代码必须放在this.$router.push之前，否则会报错路由错误
                 this.$store.commit('common/updateHasLogin', true)
                 this.$store.commit('common/updateName', this.dataForm.name)
+                this.$router.push({
+                  name: 'introduce'
+                  })
               } else {
                 this.$message.error(res.msg)
               }
