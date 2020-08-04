@@ -151,8 +151,6 @@
 			initTab() {
 				// 清空操作
 				this.mainTabs = [];
-				// 该行代码不能少
-				this.$router.push({name:'introduce'});
 			},
 			// 单击tab标签 实现内容的切换
 			selectedTabHandle(tab) {
