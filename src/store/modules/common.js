@@ -1,11 +1,10 @@
 export default {
   namespaced: true,
   state: {
-    documentClientHeight: "",
+    documentClientHeight: "", // 可视区域的高度
     mainTabs: [],
     mainTabsActiveName: "",
-    sidebarFold: false, // 侧边栏的折叠状态
-    documentClientHeight: "", // 可视区域的高度
+    sidebarFold: false,
     name: "" // 保存登录名
   },
   mutations: {
@@ -20,9 +19,6 @@ export default {
     },
     updateSidebarFold(state, sidebarFold) {
       state.sidebarFold = sidebarFold;
-    },
-    updateDocumentClientHeight(state, documentClientHeight) {
-      state.documentClientHeight = documentClientHeight;
     },
     updateName(state, name) {
       state.name = name;
