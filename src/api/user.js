@@ -22,3 +22,27 @@ export function removeUser(data) {
     data: data
   })
 }
+
+export function getUserInfo(data) {
+  return request({
+    url: '/api/user/info',
+    method: 'post',
+    data: data
+  })
+}
+
+export function editUser(data) {
+  return request({
+    url: '/api/user/edit',
+    method: 'post',
+    data: data
+  })
+}
+
+export function addUser(data) {
+  return request({
+    url: '/api/user/add',
+    method: 'post',
+    data: data
+  })
+}
