@@ -10,7 +10,8 @@
           <el-input type="password" v-model="dataForm.password" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item>
-          <button type="button" class="login-btn" @click="submitForm('dataForm')">登录</button>
+          <el-button v-if="!loading" class="login-btn" @click="submitForm('dataForm')">登陆</el-button>
+          <el-button v-else class="login-btn" :loading="loading">登陆中</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -41,7 +42,8 @@
             message: '密码不能为空',
             trigger: 'blur'
           }]
-        }
+        },
+        loading: false
       }
     },
     computed: {},
@@ -56,11 +58,13 @@
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
+            this.loading = true
             login({
               name: this.dataForm.name,
               password: this.dataForm.password
             }).then(res => {
               if(res.code === 0) {
+                this.loading = false
                 this.$router.push({
                   path: '/'
                 })
