@@ -42,7 +42,7 @@
             <a href="#">
               <el-dropdown-item command="仓库地址">仓库地址</el-dropdown-item>
             </a>
-            <el-dropdown-item divided>退出登录</el-dropdown-item>
+            <el-dropdown-item divided @click.native="signOut">退出登录</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
       </div>
@@ -108,6 +108,21 @@ export default {
         }
       }
       this.fullscreen = !this.fullscreen
+    },
+    signOut() {
+      this.$confirm('确定要进行[退出]操作?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        // 1.清除登录用户的信息
+        this.$store.commit('common/updateHasLogin', false)
+        this.$store.commit('common/updateName', '')
+        // 2.回到登录页面去
+        this.$router.push({
+          name: 'login'
+        })
+      })
     }
   }
 }
