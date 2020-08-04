@@ -151,6 +151,10 @@
 			initTab() {
 				// 清空操作
 				this.mainTabs = [];
+				// bug#001 这个代码不能少,不然在浏览器刷新时存在问题
+				this.$router.push({
+					name: 'introduce'
+				})
 			},
 			// 单击tab标签 实现内容的切换
 			selectedTabHandle(tab) {
@@ -207,6 +211,9 @@
 			tabsCloseAllHandle() {
 				// 注意首页标签是删除不了的
 				this.initTab();
+				this.$router.push({
+					name: 'introduce'
+				})
 			},
 			// 刷新当前标签
 			tabsRefreshCurrentHandle() {
