@@ -52,6 +52,7 @@
 
 <script>
 import { mapState } from 'vuex'
+import { removeToken } from '@/utils/auth.js'
 export default {
   name: '',
   data() {
@@ -116,7 +117,7 @@ export default {
         type: 'warning'
       }).then(() => {
         // 1.清除登录用户的信息
-        this.$store.commit('common/updateHasLogin', false)
+        removeToken()
         this.$store.commit('common/updateName', '')
         // 2.回到登录页面去
         this.$router.push({

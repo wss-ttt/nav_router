@@ -22,6 +22,7 @@
   import {
     login
   } from '@/api/user'
+  import { setToken } from '@/utils/auth.js'
   export default {
     components: {},
     props: {},
@@ -66,7 +67,7 @@
               if(res.code === 0) {
                 this.loading = false
                 // 下面两行代码必须放在this.$router.push之前，否则会报错路由错误
-                this.$store.commit('common/updateHasLogin', true)
+                setToken(true)
                 this.$store.commit('common/updateName', this.dataForm.name)
                 this.$router.push({
                   name: 'introduce'
