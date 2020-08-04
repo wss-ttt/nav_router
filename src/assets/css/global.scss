@@ -10,11 +10,12 @@ li {
 a {
   text-decoration: none;
 }
-html, body {
+html,
+body {
   height: 100%;
 }
 body {
-  background: rgba(121,106,238,.9);
+  background: rgba(121, 106, 238, 0.9);
 }
 .content {
   // 折叠
@@ -56,5 +57,12 @@ body {
 }
 
 .el-menu {
-	border-right: 0;
+  border-right: 0;
+}
+.el-dialog .el-dialog__header {
+  background: #056d6b;
+}
+.el-dialog .el-dialog__footer {
+  background: #f0f3f3;
+  padding: 15px;
 }
