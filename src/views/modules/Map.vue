@@ -50,15 +50,16 @@ export default {
             color: '#fff'
           }
         },
-        series: [{
-          name: 'GDP',
-          type: 'map',
-          map: 'hubei',
-          data: data,
-          label: {
+        series: [
+          {
+            name: 'GDP',
+            type: 'map',
+            map: 'hubei',
+            data: data,
+            label: {
               normal: {
                 show: true, //显示省份标签
-                textStyle:{color:"#c71585"}//省份标签字体颜色
+                textStyle: { color: '#c71585' } //省份标签字体颜色
               },
               emphasis: {
                 show: true, //对应的鼠标悬浮效果
@@ -80,13 +81,14 @@ export default {
                 areaColor: '#ffdead'
               }
             }
-        }]
+          }
+        ]
       })
     })
-    // 自动轮播
+    // 4.自动轮播
     this.timer = setInterval(this.autoPlay, 1000)
-    // 鼠标移入-停止轮播
-    this.myChart.on('mouseover', (params) => {
+    // 5.鼠标移入-停止轮播
+    this.myChart.on('mouseover', params => {
       clearInterval(this.timer)
       this.myChart.dispatchAction({
         type: 'downplay', // 取消高亮
@@ -103,11 +105,11 @@ export default {
         dataIndex: params.dataIndex // 让当前这个显示tooltip
       })
     })
-    // 鼠标移除-开启轮播
-    this.myChart.on('mouseout', (params) => {
-      this.timer = setInterval(this.autoPlay, 1000);
+    // 6.鼠标移除-开启轮播
+    this.myChart.on('mouseout', params => {
+      this.timer = setInterval(this.autoPlay, 1000)
     })
-    // resize
+    // 7.resize
     window.addEventListener(
       'resize',
       function() {
@@ -137,7 +139,7 @@ export default {
         dataIndex: this.index
       })
       this.index++
-      if(this.index === this.chartData.features.length) {
+      if (this.index === this.chartData.features.length) {
         this.index = 0
       }
     }
