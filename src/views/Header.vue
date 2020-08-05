@@ -118,6 +118,7 @@ export default {
       }).then(() => {
         // 1.清除登录用户的信息
         removeToken()
+        sessionStorage.removeItem('name')
         this.$store.commit('common/updateName', '')
         // 2.回到登录页面去
         this.$router.push({
