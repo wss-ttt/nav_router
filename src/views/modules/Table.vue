@@ -2,12 +2,12 @@
   <div class="wrapper">
     <div class="query">
       <el-form :inline="true" :model="queryParams">
-        <el-form-item label="审批人">
+        <el-form-item label="用户名">
           <el-input v-model="queryParams.name" placeholder="用户名"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="query">查询</el-button>
-          <el-button type="primary" @click="handleAdd">新增</el-button>
+          <button type="button" class="btn" @click="query">查询</button>
+          <button type="button" class="btn" @click="handleAdd">新增</button>
         </el-form-item>
       </el-form>
     </div>
@@ -194,4 +194,32 @@
 
 </script>
 <style scoped lang="scss">
+.query {
+  .btn {
+    background: #169189;
+    border-radius: 4px;
+    color: #fff;
+    border: none;
+    padding: 10px 13px;
+    cursor: pointer;
+    transition: all 1s;
+    &:hover {
+      box-shadow: 0px 2px 6px 0px rgba(4,41,39,0.7);
+    }
+  }
+}
+.dialog-footer {
+  .btn {
+    background: #00b7b3;
+    border-radius: 4px;
+    color: #fff;
+    border: none;
+    padding: 10px 13px;
+    cursor: pointer;
+    transition: all 1s;
+    &:hover {
+      background: #169189;
+    }
+  }
+}
 </style>
