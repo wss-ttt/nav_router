@@ -6,6 +6,7 @@
 
 <script>
   import VChart from '@/components/chart/index'
+  import { getTemperatureData } from '@/api/echarts'
   export default {
     components: {
       VChart
@@ -14,7 +15,6 @@
     data() {
       return {
         chartData: {
-
         }
       }
     },
@@ -22,30 +22,44 @@
     watch: {},
     created() {},
     mounted() {
-      this.chartData = {
-        xAxis: {
-          type: 'category',
-          data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-        },
-        yAxis: {
-          type: 'value'
-        },
-        series: [{
-          data: [120, 200, 150, 80, 70, 110, 130],
-          type: 'bar',
-          showBackground: true,
-          backgroundStyle: {
-            color: 'rgba(220, 220, 220, 0.8)'
-          }
-        }]
-      }
-      this.$refs['chart'].initChart(this.chartData)
+      this.$refs['chart'].showLoading()
+      getTemperatureData().then(res => {
+        this.$refs['chart'].hideLoading()
+        this.chartData = {
+          title: {
+            text: '全国温度趋势图',
+            x: 'center'
+          },
+          xAxis: {
+            name: '月份',
+            type: 'category',
+            data: res.data.xData
+          },
+          yAxis: {
+            name: '温度(C°)',
+            type: 'value'
+          },
+          series: [{
+            data: res.data.yData,
+            type: 'bar',
+            showBackground: true,
+            itemStyle: {
+              color: '#e6cf4e'
+            },
+            backgroundStyle: {
+              color: 'rgba(220, 220, 220, 0.8)'
+            }
+          }]
+        }
+        this.$refs['chart'].initChart(this.chartData)
+      })
     },
     activated() {},
     deactivated() {},
     updated() {},
     destroyed() {},
-    methods: {},
+    methods: {
+    },
     filters: {}
   }
 
