@@ -8,10 +8,11 @@ export function login(data) {
   })
 }
 
-export function getUserList() {
+export function getUserList(data) {
   return request({
     url: '/api/user/list',
-    method: 'post'
+    method: 'post',
+    data: data
   })
 }
 
