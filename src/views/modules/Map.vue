@@ -29,9 +29,10 @@ export default {
           text: '湖北省地图',
           x: 'center'
         },
-        geo: {
+        series: [{
+          type: 'map',
           map: 'hubei'
-        }
+        }]
       })
     })
 
