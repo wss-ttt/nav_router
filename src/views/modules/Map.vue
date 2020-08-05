@@ -13,7 +13,10 @@ export default {
   props: {},
   data() {
     return {
-      myChart: null
+      chartData: null,
+      myChart: null,
+      timer: null,
+      index: 0
     }
   },
   computed: {},
@@ -25,6 +28,7 @@ export default {
     this.myChart.showLoading()
     getMapData().then(res => {
       this.myChart.hideLoading()
+      this.chartData = res.data
       // 1.registerMap
       echarts.registerMap('hubei', res.data)
       // 2.给每个区随机产生一点数据(悬浮提示显示的就是该数据)
@@ -79,7 +83,31 @@ export default {
         }]
       })
     })
-
+    // 自动轮播
+    this.timer = setInterval(this.autoPlay, 1000)
+    // 鼠标移入-停止轮播
+    this.myChart.on('mouseover', (params) => {
+      clearInterval(this.timer)
+      this.myChart.dispatchAction({
+        type: 'downplay', // 取消高亮
+        seriesIndex: 0
+      })
+      this.myChart.dispatchAction({
+        type: 'highlight', // 高亮
+        seriesIndex: 0,
+        dataIndex: params.dataIndex // 让当前这个高亮
+      })
+      this.myChart.dispatchAction({
+        type: 'showTip',
+        seriesIndex: 0,
+        dataIndex: params.dataIndex // 让当前这个显示tooltip
+      })
+    })
+    // 鼠标移除-开启轮播
+    this.myChart.on('mouseout', (params) => {
+      this.timer = setInterval(this.autoPlay, 1000);
+    })
+    // resize
     window.addEventListener(
       'resize',
       function() {
@@ -92,7 +120,28 @@ export default {
   deactivated() {},
   updated() {},
   destroyed() {},
-  methods: {},
+  methods: {
+    autoPlay() {
+      this.myChart.dispatchAction({
+        type: 'downplay',
+        seriesIndex: 0
+      })
+      this.myChart.dispatchAction({
+        type: 'highlight',
+        seriesIndex: 0,
+        dataIndex: this.index
+      })
+      this.myChart.dispatchAction({
+        type: 'showTip',
+        seriesIndex: 0,
+        dataIndex: this.index
+      })
+      this.index++
+      if(this.index === this.chartData.features.length) {
+        this.index = 0
+      }
+    }
+  },
   filters: {}
 }
 </script>
