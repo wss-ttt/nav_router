@@ -61,6 +61,12 @@
     components: {},
     props: {},
     data() {
+      let checkAge = (rule, value, callback) => {
+        if(!Number.isInteger(value)) {
+          return callback(new Error('请输入数字值'))
+        }
+        callback()
+      }
       return {
         queryParams: { // 查询参数
           name: undefined
@@ -83,6 +89,9 @@
           age: [{
             required: true,
             message: '年龄不能为空',
+            trigger: 'blur'
+          }, {
+            validator: checkAge,
             trigger: 'blur'
           }]
         }
