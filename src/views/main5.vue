@@ -91,7 +91,7 @@
 	</div>
 </template>
 <script>
-	import vHeader from './Header.vue'
+	import vHeader from '@/components/header/index'
 	import { mapState } from 'vuex'
 	export default {
 		name: '',

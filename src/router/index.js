@@ -24,7 +24,7 @@ export default new Router({
     				title:'项目介绍',
     				isTab:false
     			},
-    			component: resolve => require(['@/components/introduce.vue'], resolve)
+    			component: resolve => require(['@/views/modules/introduce.vue'], resolve)
 				},
 				{
 					path: 'table',
