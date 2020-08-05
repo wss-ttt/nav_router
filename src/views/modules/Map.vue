@@ -44,6 +44,7 @@ export default {
           }
         },
         series: [{
+          name: 'GDP',
           type: 'map',
           map: 'hubei',
           data: data,
