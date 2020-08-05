@@ -37,14 +37,14 @@ body {
   padding: 0 55px 0 15px;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.12), 0 0 6px 0 rgba(0, 0, 0, 0.04);
   background-color: #fff;
-  z-index: 9999;
+  z-index: 900;
 }
 .site-tabs__tools {
   position: fixed;
   right: 0;
   top: 50px;
   background-color: #f1f4f5;
-  z-index: 99999;
+  z-index: 900;
   height: 40px;
   line-height: 40px;
   font-size: 16px;
