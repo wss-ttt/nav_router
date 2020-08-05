@@ -39,6 +39,9 @@
         <el-form-item label="年龄" prop="age">
           <el-input v-model.number="form.age"></el-input>
         </el-form-item>
+        <el-form-item label="密码" prop="password">
+          <el-input v-model="form.password"></el-input>
+        </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <button type="button" class="btn" @click="cancel">取消</button>
@@ -92,6 +95,11 @@
             trigger: 'blur'
           }, {
             validator: checkAge,
+            trigger: 'blur'
+          }],
+          password: [{
+            required: true,
+            message: '密码不能为空',
             trigger: 'blur'
           }]
         }
