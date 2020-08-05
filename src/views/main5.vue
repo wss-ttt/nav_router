@@ -265,11 +265,13 @@
 				if (this.$route.meta.isTab) {
 					height = height - 50 - 40 - 15 - 15
 					return {
+						height: height + 'px',
 						minHeight: height + 'px'
 					}
 				} else {
 					height = height - 50 - 15 - 15
 					return {
+						height: height + 'px',
 						minHeight: height + 'px'
 					}
 				}
