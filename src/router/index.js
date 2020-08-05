@@ -45,23 +45,14 @@ export default new Router({
 					component: resolve => require(['@/views/modules/echarts.vue'], resolve)
 				},
     		{
-    			path: 'home',
-    			name:'home',
-    			meta:{
-    				title:'首页',
-    				isTab:true,   // 首页不需要tab标签
-    			},
-          component: resolve => require(['@/components/home.vue'], resolve),
-    		},
-    		{
     			path: 'map',
     			name:'map',
     			meta:{
     				title:'地图',
-    				isTab:true,
+    				isTab:true,   // 首页不需要tab标签
     			},
-          component: resolve => require(['@/components/blog.vue'], resolve),
-				},
+          component: resolve => require(['@/views/modules/map.vue'], resolve),
+    		},
 				{
     			path: 'photo',
     			name:'photo',
