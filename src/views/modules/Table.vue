@@ -56,6 +56,7 @@
     editUser,
     addUser
   } from '@/api/user.js'
+  import { resetForm } from '@/utils/index'
   export default {
     components: {},
     props: {},
@@ -125,10 +126,12 @@
         this.getList()
       },
       handleAdd() {
+        this.reset()
         this.open = true
         this.title = '新增'
       },
       async handleUpdate(row) {
+        this.reset()
         const id = row.id
         const res = await getUserInfo({
           id: id
@@ -143,7 +146,8 @@
       },
       reset() {
         this.form = {}
-        this.$refs['form'].resetFields();
+        // 注意:如果不用call的话，也可以把resetForm挂载到Vue原型上
+        resetForm.call(this, 'form')
       },
       submitForm() {
         this.$refs['form'].validate(valid => {
