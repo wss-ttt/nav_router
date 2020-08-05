@@ -132,7 +132,7 @@ export default {
 <style scoped="scoped" lang="scss">
 header {
   height: 50px;
-  background-color: #242f42;
+  background-color: #006F69;
   color: #fff;
   font-size: 22px;
   .header-left {
