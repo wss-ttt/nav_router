@@ -29,7 +29,7 @@
 							 :key="subItem.path"
 							 @click="goto(subItem)">
 								<i class="el-icon-document"></i>
-								<span>{{subItem.path}}</span>
+								<!-- <span>{{subItem.path}}</span> -->
 								<span>
 									{{subItem.meta.title}}
 								</span>
