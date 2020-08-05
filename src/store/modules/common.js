@@ -5,7 +5,7 @@ export default {
     mainTabs: [],
     mainTabsActiveName: "",
     sidebarFold: false,
-    name: "" // 保存登录名
+    name: sessionStorage.getItem('name') || '' // 保存登录名
   },
   mutations: {
     updateMainTabs(state, tabs) {
@@ -21,6 +21,8 @@ export default {
       state.sidebarFold = sidebarFold;
     },
     updateName(state, name) {
+      // 解决页面刷新数据丢失问题
+      sessionStorage.setItem('name', name)
       state.name = name;
     }
   }
