@@ -30,16 +30,16 @@ export default new Router({
 					path: 'table',
 					name: 'table',
 					meta: {
-						title: 'table',
+						title: 'Table',
 						isTab: true
 					},
 					component: resolve => require(['@/views/modules/table.vue'], resolve)
 				},
 				{
 					path: 'echarts',
-					name: 'Echarts',
+					name: 'echarts',
 					meta: {
-						title: 'echarts',
+						title: 'Echarts',
 						isTab: true
 					},
 					component: resolve => require(['@/views/modules/echarts.vue'], resolve)
