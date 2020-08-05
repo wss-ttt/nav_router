@@ -3,7 +3,7 @@
     <div class="query">
       <el-form :inline="true" :model="queryParams">
         <el-form-item label="用户名">
-          <el-input v-model="queryParams.name" placeholder="用户名"></el-input>
+          <el-input v-model="queryParams.name" placeholder="用户名" clearable></el-input>
         </el-form-item>
         <el-form-item>
           <button type="button" class="btn" @click="query">查询</button>
@@ -63,7 +63,7 @@
     data() {
       return {
         queryParams: { // 查询参数
-          name: ''
+          name: undefined
         },
         form: {}, // 新增和修改
         list: [],
@@ -100,7 +100,9 @@
     destroyed() {},
     methods: {
       getList() {
-        getUserList().then(res => {
+        getUserList({
+          name: this.queryParams.name
+        }).then(res => {
           this.list = res.data
         })
       },
