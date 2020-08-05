@@ -53,15 +53,6 @@ export default new Router({
     			},
           component: resolve => require(['@/views/modules/map.vue'], resolve),
     		},
-				{
-    			path: 'photo',
-    			name:'photo',
-    			meta:{
-    				title:'相册',
-    				isTab:true
-    			},
-          component: resolve => require(['@/components/photo.vue'], resolve),
-    		},
     		{
     			path: 'system',
     			name:'system',
@@ -69,25 +60,16 @@ export default new Router({
     				title:'系统管理',
     				isTab:true
     			},
-          component: resolve => require(['@/components/news.vue'], resolve),
+          component: resolve => require(['@/views/modules/system.vue'], resolve),
           children:[
           	{
-          		path:'nba',
-          		name:'nba',
+          		path:'other',
+          		name:'other',
           		meta:{
-          			title:'NBA',
+          			title:'其他介绍',
           			isTab:true
           		},
-          		component: resolve => require(['@/components/news/nba.vue'], resolve),
-          	},
-          	{
-          		path:'football',
-          		name:'football',
-          		meta:{
-          			title:'足球',
-          			isTab:true
-          		},
-          		component: resolve => require(['@/components/news/football.vue'], resolve),
+          		component: resolve => require(['@/views/modules/other.vue'], resolve),
           	}
           ]
     		}
