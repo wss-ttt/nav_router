@@ -22,7 +22,9 @@ export default {
   mounted() {
     const vm = this
     this.myChart = echarts.init(document.getElementById('map'))
+    this.myChart.showLoading()
     getMapData().then(res => {
+      this.myChart.hideLoading()
       // 1.registerMap
       echarts.registerMap('hubei', res.data)
       // 2.给每个区随机产生一点数据(悬浮提示显示的就是该数据)
@@ -32,6 +34,7 @@ export default {
           value: Math.round(Math.random() * 100)
         }
       })
+      // 3.初始图表
       this.myChart.setOption({
         title: {
           text: '湖北省地图',
