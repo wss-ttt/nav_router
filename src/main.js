@@ -30,8 +30,8 @@ router.beforeEach((to, from, next) => {
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
-  router,
-  store,
+  router, // 挂载路由
+  store, // 注入store
   components: { App },
   template: '<App/>'
 })
