@@ -48,8 +48,8 @@ export default new Router({
     			path: 'map',
     			name:'map',
     			meta:{
-    				title:'地图',
-    				isTab:true,   // 首页不需要tab标签
+    				title: '地图',
+    				isTab: true,
     			},
           component: resolve => require(['@/views/modules/map.vue'], resolve),
     		},
