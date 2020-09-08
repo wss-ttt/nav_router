@@ -39,7 +39,10 @@ export default {
     // 绘制一个描边矩形
     // this.drawStrokeRect()
     // 绘制一个填充矩形
-    this.drawFillRect()
+    // this.drawFillRect()
+    // 使用rect方法绘制矩形
+    // this.drawRect()
+    this.drawRect2()
   },
   activated() {},
   deactivated() {},
@@ -71,6 +74,17 @@ export default {
     drawFillRect() {
       this.ctx.fillStyle = '#1acd7e'
       this.ctx.fillRect(10, 10, 150, 100)
+    },
+    // 使用rect方法绘制描边矩形
+    drawRect() {
+      this.ctx.rect(0, 0, 100, 100)
+      this.ctx.stroke()
+    },
+    // 使用rect绘制填充矩形
+    drawRect2() {
+      this.ctx.rect(0, 0, 100, 100)
+      this.ctx.fillStyle = '#1acd7e'
+      this.ctx.fill()
     }
   },
   filters: {}
