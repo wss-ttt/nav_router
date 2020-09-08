@@ -21,7 +21,8 @@ export default {
       x: '',
       y: '',
       r: 36,
-      n: 1
+      n: 1,
+      percent: 25
     }
   },
   computed: {},
@@ -42,7 +43,8 @@ export default {
     // this.drawFillRect()
     // 使用rect方法绘制矩形
     // this.drawRect()
-    this.drawRect2()
+    // this.drawRect2()
+    this.drawLoading()
   },
   activated() {},
   deactivated() {},
@@ -52,7 +54,7 @@ export default {
     drawCircle() {
       // 开始路径
       this.ctx.beginPath()
-      this.ctx.lineWidth = 10
+      this.ctx.lineWidth = 5
       this.ctx.strokeStyle = '#EEF0F5'
       // 绘制一个圆
       this.ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2)
@@ -60,10 +62,23 @@ export default {
       // 闭合路径
       this.ctx.closePath()
     },
+    // 绘制蓝色外圈
+    drawBlue(n) {
+      this.ctx.strokeStyle = '#23B1B4'
+      this.ctx.lineWidth = 5
+      this.ctx.lineCap = 'round'
+      // 开始路径
+      this.ctx.beginPath()
+      // 需要把 n 转换成对应的弧度
+      this.ctx.arc(this.x, this.y, this.r, -Math.PI / 2 , -Math.PI / 2 + n * Math.PI * 2 / 100)
+      this.ctx.stroke()
+      // 闭合路径
+      this.ctx.closePath()
+    },
     drawText(n) {
       this.ctx.font = '20px Arial'
       this.ctx.fillStyle = '#49f'
-      this.ctx.fillText(n.toFixed(0) + '%', this.x - 20, this.y + 10)
+      this.ctx.fillText(n.toFixed(0) + '%', this.x - 20 , this.y + 10)
     },
     // 绘制描边矩形
     drawStrokeRect() {
@@ -85,10 +100,27 @@ export default {
       this.ctx.rect(0, 0, 100, 100)
       this.ctx.fillStyle = '#1acd7e'
       this.ctx.fill()
+    },
+    drawLoading() {
+      // 清除画布内容
+      this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
+      this.drawCircle()
+      this.drawText(this.n)
+      this.drawBlue(this.n)
+      if(this.n < this.percent) {
+        this.n ++
+      } else {
+        return this.n = 0
+      }
+      requestAnimationFrame(this.drawLoading)
+      // setTimeout(this.drawLoading, 30)
     }
   },
   filters: {}
 }
 </script>
 <style scoped>
+#cvs { 
+  border: 1px solid red;
+}
 </style>
