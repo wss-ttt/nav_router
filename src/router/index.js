@@ -52,7 +52,16 @@ export default new Router({
     				isTab: true,
     			},
           component: resolve => require(['@/views/modules/map.vue'], resolve),
-    		},
+				},
+				{
+					path: 'canvas',
+    			name:'canvas',
+    			meta:{
+    				title: 'canvas',
+    				isTab: true,
+    			},
+          component: resolve => require(['@/views/modules/canvas.vue'], resolve),
+				},
     		{
     			path: 'system',
     			name:'system',
