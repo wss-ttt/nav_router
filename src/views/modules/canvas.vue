@@ -22,7 +22,7 @@ export default {
       y: '',
       r: 36,
       n: 1,
-      percent: 25
+      percent: 50
     }
   },
   computed: {},
@@ -45,6 +45,7 @@ export default {
     // this.drawRect()
     // this.drawRect2()
     this.drawLoading()
+    // this.bar(10)
   },
   activated() {},
   deactivated() {},
@@ -76,9 +77,11 @@ export default {
       this.ctx.closePath()
     },
     drawText(n) {
+      this.ctx.beginPath()
       this.ctx.font = '20px Arial'
       this.ctx.fillStyle = '#49f'
       this.ctx.fillText(n.toFixed(0) + '%', this.x - 20 , this.y + 10)
+      this.ctx.closePath()
     },
     // 绘制描边矩形
     drawStrokeRect() {
@@ -101,12 +104,20 @@ export default {
       this.ctx.fillStyle = '#1acd7e'
       this.ctx.fill()
     },
+    bar(n) {
+      this.ctx.beginPath()
+      this.ctx.rect(0, 150, n, 10)
+      this.ctx.fillStyle = '#1acd7e'
+      this.ctx.fill()
+      this.ctx.closePath()
+    },
     drawLoading() {
       // 清除画布内容
       this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
       this.drawCircle()
       this.drawText(this.n)
       this.drawBlue(this.n)
+      this.bar(this.n)
       if(this.n < this.percent) {
         this.n ++
       } else {
