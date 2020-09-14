@@ -94,6 +94,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    background: rgba(121, 106, 238, 0.9);
 
     .login {
       width: 500px;
