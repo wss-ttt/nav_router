@@ -95,6 +95,11 @@ export default new Router({
 			component: resolve => require(['@/views/common/404.vue'], resolve)
 		},
 		{
+			path: '/test',
+			name: 'test',
+			component: resolve => require(['@/views/common/test.vue'], resolve)
+		},
+		{
 			path: '*',
 			redirect: '/404'
 		}
