@@ -6,7 +6,7 @@
         <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px">
           <el-form-item>
             <el-button typ="primary" @click="add">新增</el-button>
-            <el-button type="info" @click="copy(index)">复制</el-button>
+            <el-button type="info" @click="copy(item)">复制</el-button>
             <el-button type="warning" @click="del(index)">删除</el-button>
           </el-form-item>
           <el-form-item label="用户名">
@@ -52,8 +52,8 @@
       add() {
         this.form.list.push(JSON.parse(JSON.stringify(this.ruleForm)))
       },
-      copy(index) {
-        this.form.list.push(JSON.parse(JSON.stringify(this.form.list[index])))
+      copy(item) {
+        this.form.list.push(JSON.parse(JSON.stringify(item)))
       },
       del(index) {
         // 只剩下一个的时候禁止j删除
