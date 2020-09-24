@@ -9,6 +9,7 @@
             <el-button type="info" @click="copy(item)">复制</el-button>
             <el-button type="warning" @click="del(index)">删除</el-button>
           </el-form-item>
+          <!-- :prop="list.0.name" -->
           <el-form-item label="用户名" :prop="`list.${index}.name`" :rules="rules.name">
             <el-input v-model="item.name"></el-input>
           </el-form-item>
@@ -49,7 +50,7 @@ export default {
   watch: {},
   created() {},
   mounted() {
-    //进行j深度拷
+    //进行深度拷
     this.form.list.push(JSON.parse(JSON.stringify(this.student)))
   },
   activated() {},
