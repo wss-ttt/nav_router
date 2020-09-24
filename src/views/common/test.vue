@@ -1,24 +1,8 @@
 <template>
-  <div class="wrapper">
-    <el-button type="success" @click="submit">表单提交</el-button>
-    <div class="container">
-      <el-form :model="form" ref="dataForm" label-width="100px">
-        <div class="item" v-for="(item, index) in form.list" :key="'aa' + index">
-          <el-form-item>
-            <el-button typ="primary" @click="add">新增</el-button>
-            <el-button type="info" @click="copy(item)">复制</el-button>
-            <el-button type="warning" @click="del(index)">删除</el-button>
-          </el-form-item>
-          <!-- :prop="list.0.name" -->
-          <el-form-item label="用户名" :prop="`list.${index}.name`" :rules="rules.name">
-            <el-input v-model="item.name"></el-input>
-          </el-form-item>
-          <el-form-item label="年龄">
-            <el-input v-model="item.age"></el-input>
-          </el-form-item>
-        </div>
-      </el-form>
-    </div>
+  <div class="test-wrapper">
+    <el-tree :data="data" show-checkbox node-key="id" :props="defaultProps" @check="check"></el-tree>
+    <!-- @current-change="currentChange" -->
+    <!-- @check-change="checkChange" -->
   </div>
 </template>
 
@@ -28,74 +12,88 @@ export default {
   props: {},
   data() {
     return {
-      student: {
-        name: undefined,
-        age: undefined
-      },
-      rules: {
-        name: [
-          {
-            required: true,
-            message: '用户名不能为空',
-            trigger: 'blur'
-          }
-        ]
-      },
-      form: {
-        list: []
+      data: [
+        {
+          id: 1,
+          label: '一级 1',
+          children: [
+            {
+              id: 4,
+              label: '二级 1-1',
+              children: [
+                {
+                  id: 9,
+                  label: '三级 1-1-1'
+                },
+                {
+                  id: 10,
+                  label: '三级 1-1-2'
+                }
+              ]
+            }
+          ]
+        },
+        {
+          id: 2,
+          label: '一级 2',
+          children: [
+            {
+              id: 5,
+              label: '二级 2-1'
+            },
+            {
+              id: 6,
+              label: '二级 2-2'
+            }
+          ]
+        },
+        {
+          id: 3,
+          label: '一级 3',
+          children: [
+            {
+              id: 7,
+              label: '二级 3-1'
+            },
+            {
+              id: 8,
+              label: '二级 3-2'
+            }
+          ]
+        }
+      ],
+      defaultProps: {
+        children: 'children',
+        label: 'label'
       }
     }
   },
   computed: {},
   watch: {},
   created() {},
-  mounted() {
-    //进行深度拷
-    this.form.list.push(JSON.parse(JSON.stringify(this.student)))
-  },
+  mounted() {},
   activated() {},
   deactivated() {},
   updated() {},
   destroyed() {},
   methods: {
-    add() {
-      this.form.list.push(JSON.parse(JSON.stringify(this.student)))
+    check(a, b) {
+      console.log('a', a)
+      console.log('b', b)
+      console.log([].concat(b.checkedKeys, b.halfCheckedKeys))
     },
-    copy(item) {
-      this.form.list.push(JSON.parse(JSON.stringify(item)))
+    checkChange(a, b, c) {
+      console.log('a', a)
+      console.log('b', b)
+      console.log('c', c)
     },
-    del(index) {
-      // 只剩下一个的时候禁止j删除
-      if (this.form.list.length === 1) return
-      this.form.list.splice(index, 1)
-    },
-    submit() {
-      this.$refs['dataForm'].validate(valid => {
-        if (valid) {
-          this.$message.success('成功')
-          console.log(this.form.list)
-        } else {
-          return false
-        }
-      })
+    currentChange(a, b) {
+      console.log('a', a)
+      console.log('b', b)
     }
   },
   filters: {}
 }
 </script>
-<style scoped lang="scss">
-.wrapper {
-  .container {
-    display: flex;
-    flex-wrap: wrap;
-  }
-}
-.item {
-  width: 400px;
-  padding: 10px;
-  margin: 5px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.2);
-}
+<style scoped>
 </style>
