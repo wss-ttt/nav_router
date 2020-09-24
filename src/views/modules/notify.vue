@@ -1,5 +1,7 @@
 <template>
-  <div class="wrapper"></div>
+  <div class="notify-wrapper">
+    <h2>系统消息依次弹出</h2>
+  </div>
 </template>
 
 <script>
@@ -37,15 +39,15 @@ export default {
       }
     },
     doNotify2() {
-      for (let i = 0; i < 20; i++) {
+      for (let i = 0; i < 5; i++) {
         this.timer = setTimeout(() => {
           this.$notify({
             title: '你的弹窗',
-            duration: 3000,
+            duration: 6000,
             message: '右下角弹出的消息' + i,
             position: 'bottom-right'
           })
-        }, 300 * i)
+        }, 500 * i)
       }
     },
     doNotify3() {
