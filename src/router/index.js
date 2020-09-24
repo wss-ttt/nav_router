@@ -36,6 +36,15 @@ export default new Router({
 					component: resolve => require(['@/views/modules/table.vue'], resolve)
 				},
 				{
+					path: 'form',
+					name: 'form',
+					meta: {
+						title: 'form',
+						isTab: true
+					},
+					component: resolve => require(['@/views/modules/form.vue'], resolve)
+				},
+				{
 					path: 'echarts',
 					name: 'echarts',
 					meta: {
