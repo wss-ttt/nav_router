@@ -45,6 +45,15 @@ export default new Router({
 					component: resolve => require(['@/views/modules/form.vue'], resolve)
 				},
 				{
+					path: 'notify',
+					name: 'notify',
+					meta: {
+						title: 'notify',
+						isTab: true
+					},
+					component: resolve => require(['@/views/modules/notify.vue'], resolve)
+				},
+				{
 					path: 'echarts',
 					name: 'echarts',
 					meta: {
