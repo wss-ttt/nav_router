@@ -6,8 +6,9 @@ const originalPush = Router.prototype.push
 Router.prototype.push = function push(location) {
    return originalPush.call(this, location).catch(err => err)
 }
-export default new Router({
-  routes: [
+
+const router = new Router({
+	routes: [
   	{
   		path:'/',
   		redirect: '/introduce'
@@ -123,3 +124,34 @@ export default new Router({
 		}
   ]
 })
+
+// 动态添加路由
+/* router.addRoutes([{
+	path: '/testPage',
+	name: 'testPage',
+	component: resolve => require(['@/views/modules/testPage.vue'], resolve)
+}]) 
+router.addRoutes(router.options.routes)
+*/
+
+// 给某一个路由动态添加子路由
+/* const r = {
+	path: 'testPage',
+	name: 'testPage',
+	meta: {
+		title: 'testPage',
+		isTab: true
+	},
+	component: () => import('@/views/modules/testPage.vue')
+}
+router.options.routes[1].children.push(r)
+// 自己定义一个addRoutes方法
+router.$addRoutes = (params) => {
+	router.matcher = new Router({mode: 'history'}).matcher;
+	router.addRoutes(params)
+}
+// 挂载路由
+router.$addRoutes(router.options.routes) */
+
+export default router
+
