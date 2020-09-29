@@ -153,5 +153,10 @@ router.$addRoutes = (params) => {
 // 挂载路由
 router.$addRoutes(router.options.routes) */
 
+router.$addRoutes = (params) => {
+	router.matcher = new Router({mode: 'history'}).matcher;
+	router.addRoutes(params)
+}
+
 export default router
 
